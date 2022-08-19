@@ -1,8 +1,4 @@
-# This is a sample Python script.
-from prettytable import PrettyTable
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from Stations.index import station_menu
 def show_main_menu():
     userType = ""
     while True:
@@ -27,7 +23,7 @@ def show_main_menu():
         # switch
         match userType:
             case 1:
-                print("Case 1")
+                station_menu()
                 input("\nPress enter to continue\n")
             case 2:
                 print("Case 2")
@@ -46,10 +42,6 @@ def show_main_menu():
                 print("\n\n\t\t G O O D   B Y E  !\n\n")
                 break
 
-def start_project():
-    show_main_menu()
-
-
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    start_project()
+    show_main_menu()

@@ -20,7 +20,7 @@ d’utilisation des essences dans la station. Il est le rapport entre la quantit
 de la citerne de la pompe pour un type d’essence donné.
 
 Opération à effectuer :
-a. Enregistrer stations, modifier quantité gallon de gazoline et/ou de Diesel d’une station, afficher toutesles
+a. Enregistrer stations, modifier quantité gallon de gazoline et/ou de Diesel d’une station, afficher toutes les
 stations.
 
 2. Commandes (ID, quantité gallon Diesel et/ ou Quantité gallon Gazoline, date commande, état)
