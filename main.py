@@ -1,4 +1,5 @@
 from Stations.index import station_menu
+
 def show_main_menu():
     userType = ""
     while True:

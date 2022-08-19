@@ -1,8 +1,15 @@
 import os
-CLECINE_CONST = "clercine"
-PETION_VILLE_CONST = "petion-ville"
 LALUE_CONST = "lalue"
 TABARRE_CONST = "tabarre"
+CLECINE_CONST = "clercine"
+PETION_VILLE_CONST = "petion-ville"
+
+all_station = {
+    LALUE_CONST:{},
+    TABARRE_CONST:{},
+    CLECINE_CONST:{},
+    PETION_VILLE_CONST:{},
+}
 
 def retryFunc():
     usertype = ""

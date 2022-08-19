@@ -1,9 +1,12 @@
 import functions
+from Stations.stations import Station
 
 GAZOLINE_CONST ="gazoline"
 DIESEL_CONST ="diesel"
 GAZOLINE_CHOICE = 1
 DIESEL_CHOICE = 2
+v_station = Station()
+
 
 # function to ask name of a station
 def askstationname():
@@ -89,7 +92,8 @@ def addStation():
         # Entrer capacite diesel
         capacitediesel= ask_capacity("diesel")
 
-        print(f"\n\nNom: {nomstation}\nCapacite gazol: {capacitegazoline}\nCapacite die: {capacitediesel}")
+        # print(f"\n\nNom: {nomstation}\nCapacite gazol: {capacitegazoline}\nCapacite die: {capacitediesel}")
+        v_station.construct(nom=nomstation, capacite_gazoline=capacitegazoline, capacite_diesel=capacitediesel)
 
         valueReturn = functions.retryFunc()
         if valueReturn == 0:
@@ -122,27 +126,4 @@ def show_edit_galon():
 
 def show_all():
     print("\n\n============| AFFICHER TOUTES LES STATIONS |============")
-
-    print(f"\n{functions.LALUE_CONST.upper()}")
-    print(f"\tQte gazoline: {2993}")
-    print(f"\t% gazoline: {93}%")
-    print(f"\tQte diesel: {424}")
-    print(f"\t% diesel: {100}%")
-
-    print(f"\n{functions.TABARRE_CONST.upper()}")
-    print(f"\tQte gazoline: {2993}")
-    print(f"\t% gazoline: {93}%")
-    print(f"\tQte diesel: {424}")
-    print(f"\t% diesel: {100}%")
-
-    print(f"\n{functions.CLECINE_CONST.upper()}")
-    print(f"\tQte gazoline: {2993}")
-    print(f"\t% gazoline: {93}%")
-    print(f"\tQte diesel: {424}")
-    print(f"\t% diesel: {100}%")
-
-    print(f"\n{functions.PETION_VILLE_CONST.upper()}")
-    print(f"\tQte gazoline: {2993}")
-    print(f"\t% gazoline: {93}%")
-    print(f"\tQte diesel: {424}")
-    print(f"\t% diesel: {100}%")
+    v_station.afficher()
