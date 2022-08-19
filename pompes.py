@@ -1,5 +1,6 @@
 from stations import Station
 
+lalue, tabarre, clercine, pv = 'Lalue', 'Tabarre', 'Clercine', 'Petion-ville'
 b1 = True
 while (b1):
     print('\n******  *************MENU***************** ******|')
@@ -13,38 +14,49 @@ while (b1):
 
     match choix:
         case 'a':
-          nom=''
-          
-          while nom != "Lalue" or nom != "Tabarre" or nom != "Clercine" or nom != "Petion-ville":
-            nom =input("Entrer le nom de la zones( Lalue, Tabarre, Clercine et Pétion-ville): ")
-          
-          capacite_gazoline=0
-          while capacite_gazoline <= 0:
-            capacite_gazoline= int(input("Entrer la capacite en Gazoline"))
+            nom=''
+            while not (nom.casefold() == lalue.casefold() or nom.casefold() == tabarre.casefold() or nom.casefold() == clercine.casefold() or nom.casefold() == pv.casefold()):
+                nom = input("Entrer le nom de la zones( Lalue, Tabarre, Clercine et Pétion-ville): ")
+            
 
-            capacite_diesel=0
-          while capacite_diesel < 0:
-            capacite_diesel= int(input("Entrer la capacite en Diesel"))
+            capacite_gazoline = 0
+            while capacite_gazoline <= 0:
+                capacite_gazoline = int(input("Entrer la capacite en Gazoline: "))
 
-          qte_gallon_dispo = 0
-          while qte_gallon_dispo <=0  and qte_gallon_dispo>capacite_gazoline:
-            qte_gallon_dispo= input("Entrer la quantite de gallons disponible ")
+                capacite_diesel = 0
+            while capacite_diesel <= 0:
+                capacite_diesel = int(input("Entrer la capacite en Diesel: "))
 
-          station = Station(nom,capacite_gazoline,pourcentage_gazoline,pourcentage_diesel,capacite_diesel)
-          station.enregistrer(nom)
-          input("Presser (Enter) pour continuez!")
+            qte_gallon_gasoline_dispo = 0
+            if qte_gallon_gasoline_dispo <= capacite_gazoline:
+               qte_gallon_gasoline_dispo = int(input("Entrer la quantite de gallons gasoline disponible: "))
+               pourcentage_gazoline = (qte_gallon_gasoline_dispo * 100) / capacite_gazoline
+            else:
+               print('No')
+
+            qte_gallon_diesel_dispo = 0
+            if qte_gallon_diesel_dispo <= capacite_diesel:
+               qte_gallon_diesel_dispo = int(input("Entrer la quantite de gallons diesel disponible: "))
+               pourcentage_diesel = (qte_gallon_diesel_dispo * 100) / capacite_diesel
+
+               station = Station(nom, capacite_gazoline, capacite_diesel, pourcentage_gazoline, pourcentage_diesel)
+               station.enregistrer(nom)
+            else:
+                print('No')
+            input("Presser (Enter) pour continuez!")
         case 'b':
-           
-           input("Presser (Enter) pour continuez!")
+
+            input("Presser (Enter) pour continuez!")
         case 'c':
-           print
+            print
         case 'd':
-          print
+            station.afficher(nom)
+            input("Presser (Enter) pour continuez!")
         case 'e':
-           print
-                                 
-        case 'i':
             b1 = False
             print('over')
+
+        case 'i':
+            pass
         case other:
             print('wrong choice')
