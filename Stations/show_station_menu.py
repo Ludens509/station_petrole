@@ -1,11 +1,18 @@
 import functions
 from Stations.stations import Station
 
-GAZOLINE_CONST ="gazoline"
-DIESEL_CONST ="diesel"
+GAZOLINE_CONST = "gazoline"
+DIESEL_CONST = "diesel"
 GAZOLINE_CHOICE = 1
 DIESEL_CHOICE = 2
 v_station = Station()
+
+
+def findIfStationExist(name):
+    for key, value in functions.all_station.items():
+        if name == key:
+            return True
+    return False
 
 
 # function to ask name of a station
@@ -20,24 +27,42 @@ def askstationname():
         usertype = input("R- ")
 
         if usertype.isdigit():
+
             if int(usertype) == 1:
-                usertype= functions.LALUE_CONST
-                break
+                usertype = functions.LALUE_CONST
+                is_exist = findIfStationExist(usertype)
+                if is_exist:
+                    print("Cette station existe deja, si vous souhaitez la modifier, choissez l'option qui convient")
+                else:
+                    break
             elif int(usertype) == 2:
-                usertype= functions.TABARRE_CONST
-                break
+                usertype = functions.TABARRE_CONST
+                is_exist = findIfStationExist(usertype)
+                if is_exist:
+                    print("Cette station existe deja, si vous souhaitez la modifier, choissez l'option qui convient")
+                else:
+                    break
             elif int(usertype) == 3:
                 usertype = functions.CLECINE_CONST
-                break
+                is_exist = findIfStationExist(usertype)
+                if is_exist:
+                    print("Cette station existe deja, si vous souhaitez la modifier, choissez l'option qui convient")
+                else:
+                    break
             elif int(usertype) == 4:
                 usertype = functions.PETION_VILLE_CONST
-                break
+                is_exist = findIfStationExist(usertype)
+                if is_exist:
+                    print("Cette station existe deja, si vous souhaitez la modifier, choissez l'option qui convient")
+                else:
+                    break
             else:
                 print("Veuillez choisir une valeur entre 1 et 4")
         else:
             print("Entrer une valeur correcte, entre 1 et 4")
 
     return usertype
+
 
 # functon to ask capacity
 def ask_capacity(type_galon):
@@ -53,6 +78,7 @@ def ask_capacity(type_galon):
         else:
             print("Incorrect! Veuillez un nombre")
     return usertype
+
 
 # function to ask_choice_which_capacity
 def ask_which_capacity():
@@ -70,7 +96,7 @@ def ask_which_capacity():
 
     # condition ternaire :
     # val_if_true if condition else val_if_false
-    return GAZOLINE_CONST if (usertype== GAZOLINE_CHOICE) else DIESEL_CONST
+    return GAZOLINE_CONST if (usertype == GAZOLINE_CHOICE) else DIESEL_CONST
 
 
 def addStation():
@@ -84,20 +110,21 @@ def addStation():
     while True:
         print("============| AJOUT D'UNE STATION |============")
         # Entrer le nom
-        nomstation=askstationname()
+        nomstation = askstationname()
 
         # Entrer capacite gazoline
-        capacitegazoline= ask_capacity("gazoline")
+        capacitegazoline = ask_capacity("gazoline")
 
         # Entrer capacite diesel
-        capacitediesel= ask_capacity("diesel")
+        capacitediesel = ask_capacity("diesel")
 
         # print(f"\n\nNom: {nomstation}\nCapacite gazol: {capacitegazoline}\nCapacite die: {capacitediesel}")
-        v_station.construct(nom=nomstation, capacite_gazoline=capacitegazoline, capacite_diesel=capacitediesel)
+        v_station.enregistrer(nom=nomstation, capacite_gazoline=capacitegazoline, capacite_diesel=capacitediesel)
 
         valueReturn = functions.retryFunc()
         if valueReturn == 0:
             break
+
 
 # ================================== MODIFIER CAPACITE GALON ===============================
 
@@ -121,6 +148,7 @@ def show_edit_galon():
         valueReturn = functions.retryFunc()
         if valueReturn == 0:
             break
+
 
 # ================================== AFFICHER TOUTES STATIONS ===============================
 
