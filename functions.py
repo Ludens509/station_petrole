@@ -4,6 +4,10 @@ TABARRE_CONST = "tabarre"
 CLECINE_CONST = "clercine"
 PETION_VILLE_CONST = "petion-ville"
 
+GAZOLINE_CONST = "gazoline"
+DIESEL_CONST = "diesel"
+GAZOLINE_CHOICE = 1
+DIESEL_CHOICE = 2
 all_station = {}
 
 def retryFunc():

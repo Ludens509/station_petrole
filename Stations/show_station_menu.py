@@ -1,58 +1,55 @@
-import functions
+from functions import all_station, LALUE_CONST, TABARRE_CONST, CLECINE_CONST, PETION_VILLE_CONST, DIESEL_CONST, \
+    DIESEL_CHOICE, retryFunc, GAZOLINE_CHOICE, GAZOLINE_CONST
 from Stations.stations import Station
 
-GAZOLINE_CONST = "gazoline"
-DIESEL_CONST = "diesel"
-GAZOLINE_CHOICE = 1
-DIESEL_CHOICE = 2
 v_station = Station()
 
 
 def findIfStationExist(name):
-    for key, value in functions.all_station.items():
+    for key, value in all_station.items():
         if name == key:
             return True
     return False
 
 
 # function to ask name of a station
-def askstationname():
+def askstationname( toChange = False):
     usertype = ""
     print(f"Veuillez choisir l'une de ces station:")
-    print(f"1- {functions.LALUE_CONST}")
-    print(f"2- {functions.TABARRE_CONST}")
-    print(f"3- {functions.CLECINE_CONST}")
-    print(f"4- {functions.PETION_VILLE_CONST}")
+    print(f"1- {LALUE_CONST}")
+    print(f"2- {TABARRE_CONST}")
+    print(f"3- {CLECINE_CONST}")
+    print(f"4- {PETION_VILLE_CONST}")
     while True:
         usertype = input("R- ")
 
         if usertype.isdigit():
 
             if int(usertype) == 1:
-                usertype = functions.LALUE_CONST
+                usertype = LALUE_CONST
                 is_exist = findIfStationExist(usertype)
-                if is_exist:
+                if is_exist and not toChange :
                     print("Cette station existe deja, si vous souhaitez la modifier, choissez l'option qui convient")
                 else:
                     break
             elif int(usertype) == 2:
-                usertype = functions.TABARRE_CONST
+                usertype = TABARRE_CONST
                 is_exist = findIfStationExist(usertype)
-                if is_exist:
+                if is_exist and not toChange :
                     print("Cette station existe deja, si vous souhaitez la modifier, choissez l'option qui convient")
                 else:
                     break
             elif int(usertype) == 3:
-                usertype = functions.CLECINE_CONST
+                usertype = CLECINE_CONST
                 is_exist = findIfStationExist(usertype)
-                if is_exist:
+                if is_exist and not toChange :
                     print("Cette station existe deja, si vous souhaitez la modifier, choissez l'option qui convient")
                 else:
                     break
             elif int(usertype) == 4:
-                usertype = functions.PETION_VILLE_CONST
+                usertype = PETION_VILLE_CONST
                 is_exist = findIfStationExist(usertype)
-                if is_exist:
+                if is_exist and not toChange :
                     print("Cette station existe deja, si vous souhaitez la modifier, choissez l'option qui convient")
                 else:
                     break
@@ -121,7 +118,7 @@ def addStation():
         # print(f"\n\nNom: {nomstation}\nCapacite gazol: {capacitegazoline}\nCapacite die: {capacitediesel}")
         v_station.enregistrer(nom=nomstation, capacite_gazoline=capacitegazoline, capacite_diesel=capacitediesel)
 
-        valueReturn = functions.retryFunc()
+        valueReturn = retryFunc()
         if valueReturn == 0:
             break
 
@@ -137,7 +134,7 @@ def show_edit_galon():
     while True:
         print("============| MODIFIER GALON STATION |============")
         # Entrer le nom de la station
-        nomstation = askstationname()
+        nomstation = askstationname(toChange=True)
 
         # Entrer capacite gazoline
         type_capacite = ask_which_capacity()
@@ -145,9 +142,12 @@ def show_edit_galon():
         # Entrer capacite diesel
         nvle_capacite = ask_capacity(type_capacite)
 
-        valueReturn = functions.retryFunc()
+        v_station.modifier(nom=nomstation, typeCapacite=type_capacite, nouvellevaleur=nvle_capacite)
+
+        valueReturn = retryFunc()
         if valueReturn == 0:
             break
+
 
 
 # ================================== AFFICHER TOUTES STATIONS ===============================

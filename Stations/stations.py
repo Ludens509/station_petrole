@@ -1,4 +1,5 @@
 from re import T
+from functions import GAZOLINE_CONST
 
 import functions
 
@@ -76,5 +77,17 @@ class Station():
                 for cle, value in val.items():
                     print(f"{cle}       --> {value}")
 
-    def modifier(self, nom):
-        pass
+    def modifier(self,nom, typeCapacite, nouvellevaleur):
+
+        print("To change: ", typeCapacite)
+        if typeCapacite == GAZOLINE_CONST:
+            functions.all_station[nom]["capacite_gazoline"] = nouvellevaleur
+        else:
+            functions.all_station[nom]["capacite_diesel"] = nouvellevaleur
+        print("Changed successfully!")
+
+# all_station={
+#     "lalue":{
+#         "capacite_gazoline": 33
+#     }
+# }
