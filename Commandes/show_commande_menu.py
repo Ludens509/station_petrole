@@ -1,10 +1,10 @@
-import secrets, functions
+import functions
+import secrets
 
-from functions import all_commande, all_station, LALUE_CONST, TABARRE_CONST, CLERCINE_CONST, PETION_VILLE_CONST, \
-    DIESEL_CONST, \
-    DIESEL_CHOICE, retryFunc,BOTH_GAZ_CHOICE , GAZOLINE_CHOICE, GAZOLINE_CONST
 from Commandes.commandes import Commande
 from Stations.stations import Station
+from functions import all_station, LALUE_CONST, TABARRE_CONST, CLERCINE_CONST, PETION_VILLE_CONST, \
+    DIESEL_CHOICE, retryFunc, BOTH_GAZ_CHOICE, GAZOLINE_CHOICE
 
 v_station = Station()
 v_commande = Commande()
@@ -81,7 +81,7 @@ def askstationname(toChange=False):
 
 def ask_choice_commande(choix):
     usertype = ""
-    print(f"Veuillez choisir l'une de ces station:")
+    print(f"Veuillez choisir l'une de ces commandes:")
     print(f"1- {GAZOLINE_CHOICE}")
     print(f"2- {DIESEL_CHOICE}")
     print(f"3- {BOTH_GAZ_CHOICE }")
@@ -98,12 +98,12 @@ def ask_choice_commande(choix):
                 usertype = CLERCINE_CONST
                 
             else:
-                print("Veuillez choisir une valeur entre 1 et 4")
+                print("Veuillez choisir une valeur entre 1 et 3")
       else:
         print("Entrer une valeur correcte, entre 1 et 3")
        
 # functon to ask capacity
-def ask_commande(type_galon):
+def ask_commande():
     
     v_station.afficher()
     usertype = input("Voulez-vous confirmer la nouvelle commande ?\n1- Oui\n0- Non\nR- ")

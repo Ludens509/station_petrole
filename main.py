@@ -1,3 +1,4 @@
+from Commandes.index import commande_menu
 from Stations.index import station_menu
 
 def show_main_menu():
@@ -27,7 +28,7 @@ def show_main_menu():
                 station_menu()
                 input("\nPress enter to continue\n")
             case 2:
-                print("Case 2")
+                commande_menu()
                 input("\nPress enter to continue\n")
             case 3:
                 print("Case 3")
