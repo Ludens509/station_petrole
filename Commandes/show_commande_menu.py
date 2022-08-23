@@ -2,7 +2,7 @@ import secrets, functions
 
 from functions import all_commande, all_station, LALUE_CONST, TABARRE_CONST, CLERCINE_CONST, PETION_VILLE_CONST, \
     DIESEL_CONST, \
-    DIESEL_CHOICE, retryFunc, GAZOLINE_CHOICE, GAZOLINE_CONST
+    DIESEL_CHOICE, retryFunc,BOTH_GAZ_CHOICE , GAZOLINE_CHOICE, GAZOLINE_CONST
 from Commandes.commandes import Commande
 from Stations.stations import Station
 
@@ -54,7 +54,7 @@ def askstationname(toChange=False):
                 print("Cette station n\'existe pas donc impossible de passe une commande")
                 break
         elif usertype == askifexist:
-            usertype = TABARRE_CONST
+            usertype = askifexist()
             is_exist = findIfStationExist(usertype)
             if is_exist and not toChange:
                 print("Cette station existe deja,  vous pouvez donc effectuer votre commmande")
@@ -62,7 +62,7 @@ def askstationname(toChange=False):
                 print("Cette station n\'existe pas donc impossible de passe une commande")
                 break
         elif usertype == askifexist:
-            usertype = CLERCINE_CONST
+            usertype = askifexist()
             is_exist = findIfStationExist(usertype)
             if is_exist and not toChange:
                 print("Cette station existe deja,  vous pouvez donc effectuer votre commmande")
@@ -70,7 +70,7 @@ def askstationname(toChange=False):
                 print("Cette station n\'existe pas donc impossible de passe une commande")
                 break
         elif usertype == askifexist:
-            usertype = PETION_VILLE_CONST
+            usertype = askifexist()
             is_exist = findIfStationExist(usertype)
             if is_exist and not toChange:
                 print("Cette station existe deja,  vous pouvez donc effectuer votre commmande")
@@ -79,26 +79,49 @@ def askstationname(toChange=False):
                 break
     return usertype
 
-
+def ask_choice_commande(choix):
+    usertype = ""
+    print(f"Veuillez choisir l'une de ces station:")
+    print(f"1- {GAZOLINE_CHOICE}")
+    print(f"2- {DIESEL_CHOICE}")
+    print(f"3- {BOTH_GAZ_CHOICE }")
+    while True:
+      usertype = input("R- ") 
+      if usertype.isdigit():
+            if int(usertype) == 1:
+                usertype = LALUE_CONST
+                
+            elif int(usertype) == 2:
+                usertype = TABARRE_CONST
+            
+            elif int(usertype) == 3:
+                usertype = CLERCINE_CONST
+                
+            else:
+                print("Veuillez choisir une valeur entre 1 et 4")
+      else:
+        print("Entrer une valeur correcte, entre 1 et 3")
+       
 # functon to ask capacity
 def ask_commande(type_galon):
-    choix = ""
+    
+    v_station.afficher()
+    usertype = input("Voulez-vous confirmer la nouvelle commande ?\n1- Oui\n0- Non\nR- ")
     while True:
-        v_station.afficher()
-        choix = input(f"Veuillez entrer sa capacite en {type_galon}: ")
+        usertype = input("R- ")
         if usertype.isdigit():
-            usertype = float(usertype)
-            if 100 <= usertype <= 1000000000000:
-                break
+            usertype = int(usertype)
+            if usertype == 0 or usertype == 1:
+                return usertype
             else:
-                print("Entrer une acceptable entre (100 entre 1000000000000")
+                print("Incorrect! Le nombre doit etre 1 ou 0")
         else:
-            print("Incorrect! Veuillez un nombre")
-    return usertype
+            print("Incorrect! Entrer une valeur entiere")
+        
+       
 
 
 def addCommande():
-    usertype = ""
 
     while True:
         print("============| AJOUT D'UNE COMMANDE |============")

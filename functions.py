@@ -8,6 +8,7 @@ GAZOLINE_CONST = "gazoline"
 DIESEL_CONST = "diesel"
 GAZOLINE_CHOICE = 1
 DIESEL_CHOICE = 2
+BOTH_GAZ_CHOICE = 3
 QTE_GAL_GAZOLINE = "qte_gallon_gazoline"
 QTE_GAL_DIESEL = "qte_gallon_diesel"
 
