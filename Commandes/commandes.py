@@ -1,4 +1,6 @@
 from stations import Station
+from functions import LALUE_CONST,TABARRE_CONST,CLERCINE_CONST,PETION_VILLE_CONST
+import functions
 class Commande(Station):
 
   def __init__(self,id):
@@ -13,5 +15,11 @@ class Commande(Station):
     self.etat = etat
 
   def afficher(self,):
-    pass
+        for k, val in functions.all_commande.items():
+            if val.items():
+                print(f"\n{k.upper()}\n")
+                for cle, value in val.items():
+                    print(f"{cle}       --> {value}")
+
+       
     

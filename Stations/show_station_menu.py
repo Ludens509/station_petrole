@@ -1,4 +1,4 @@
-from functions import all_station, LALUE_CONST, TABARRE_CONST, CLECINE_CONST, PETION_VILLE_CONST, DIESEL_CONST, \
+from functions import all_station, LALUE_CONST, TABARRE_CONST, CLERCINE_CONST, PETION_VILLE_CONST, DIESEL_CONST, \
     DIESEL_CHOICE, retryFunc, GAZOLINE_CHOICE, GAZOLINE_CONST
 from Stations.stations import Station
 
@@ -13,12 +13,12 @@ def findIfStationExist(name):
 
 
 # function to ask name of a station
-def askstationname( toChange = False):
+def askstationname(toChange=False):
     usertype = ""
     print(f"Veuillez choisir l'une de ces station:")
     print(f"1- {LALUE_CONST}")
     print(f"2- {TABARRE_CONST}")
-    print(f"3- {CLECINE_CONST}")
+    print(f"3- {CLERCINE_CONST}")
     print(f"4- {PETION_VILLE_CONST}")
     while True:
         usertype = input("R- ")
@@ -28,28 +28,28 @@ def askstationname( toChange = False):
             if int(usertype) == 1:
                 usertype = LALUE_CONST
                 is_exist = findIfStationExist(usertype)
-                if is_exist and not toChange :
+                if is_exist and not toChange:
                     print("Cette station existe deja, si vous souhaitez la modifier, choissez l'option qui convient")
                 else:
                     break
             elif int(usertype) == 2:
                 usertype = TABARRE_CONST
                 is_exist = findIfStationExist(usertype)
-                if is_exist and not toChange :
+                if is_exist and not toChange:
                     print("Cette station existe deja, si vous souhaitez la modifier, choissez l'option qui convient")
                 else:
                     break
             elif int(usertype) == 3:
-                usertype = CLECINE_CONST
+                usertype = CLERCINE_CONST
                 is_exist = findIfStationExist(usertype)
-                if is_exist and not toChange :
+                if is_exist and not toChange:
                     print("Cette station existe deja, si vous souhaitez la modifier, choissez l'option qui convient")
                 else:
                     break
             elif int(usertype) == 4:
                 usertype = PETION_VILLE_CONST
                 is_exist = findIfStationExist(usertype)
-                if is_exist and not toChange :
+                if is_exist and not toChange:
                     print("Cette station existe deja, si vous souhaitez la modifier, choissez l'option qui convient")
                 else:
                     break
@@ -147,7 +147,6 @@ def show_edit_galon():
         valueReturn = retryFunc()
         if valueReturn == 0:
             break
-
 
 
 # ================================== AFFICHER TOUTES STATIONS ===============================

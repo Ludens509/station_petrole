@@ -11,7 +11,7 @@ def show_main_menu():
         print("0- Quitter")
 
         while True:
-            userType= input("R- ")
+            userType = input("R- ")
             if userType.isdigit():
                 userType = int(userType)
                 if userType >= 0 and userType <= 4:
@@ -42,6 +42,7 @@ def show_main_menu():
                 print("IP: 192.168.40.1/24 ")
                 print("\n\n\t\t G O O D   B Y E  !\n\n")
                 break
+
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':

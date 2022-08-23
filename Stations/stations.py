@@ -25,7 +25,7 @@ class Station():
         self.changePourcentageGazoline()
         self.changePourcentageDiesel()
 
-        if not (self.nom == functions.LALUE_CONST and self.nom == functions.TABARRE_CONST and self.nom == functions.CLECINE_CONST and self.nom != functions.PETION_VILLE_CONST):
+        if not (self.nom == functions.LALUE_CONST and self.nom == functions.TABARRE_CONST and self.nom == functions.CLERCINE_CONST and self.nom != functions.PETION_VILLE_CONST):
             functions.all_station.update({
                 self.nom: {
                     "nom": self.nom,
