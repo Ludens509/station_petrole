@@ -26,7 +26,16 @@ def generer_id():
     return secret_id
 
 
-def askifexist(self, ):
+def qte_gallon_diesel():
+    qte_gallon_diesel = (1.10 * v_commande.total_gallon_diesel_maquant())
+    return qte_gallon_diesel
+
+def qte_gallon_gazoline():
+    qte_gallon_gazoline = (1.25 * v_commande.total_gallon_gazoline_maquant())
+    return qte_gallon_gazoline
+
+def askifexist():
+    cle =""
     for key in functions.all_station.keys():
         if key == LALUE_CONST:
             cle = LALUE_CONST
@@ -38,14 +47,13 @@ def askifexist(self, ):
             cle = PETION_VILLE_CONST
     return cle
 
-
 # function to ask name of a station
 def askstationname(toChange=False):
     usertype = ""
 
     while True:
 
-        if usertype == askifexist:
+        if usertype == askifexist():
             usertype = askifexist()
             is_exist = findIfStationExist(usertype)
             if is_exist and not toChange:
@@ -53,7 +61,7 @@ def askstationname(toChange=False):
             else:
                 print("Cette station n\'existe pas donc impossible de passe une commande")
                 break
-        elif usertype == askifexist:
+        elif usertype == askifexist():
             usertype = askifexist()
             is_exist = findIfStationExist(usertype)
             if is_exist and not toChange:
@@ -61,7 +69,7 @@ def askstationname(toChange=False):
             else:
                 print("Cette station n\'existe pas donc impossible de passe une commande")
                 break
-        elif usertype == askifexist:
+        elif usertype == askifexist():
             usertype = askifexist()
             is_exist = findIfStationExist(usertype)
             if is_exist and not toChange:
@@ -69,7 +77,7 @@ def askstationname(toChange=False):
             else:
                 print("Cette station n\'existe pas donc impossible de passe une commande")
                 break
-        elif usertype == askifexist:
+        elif usertype == askifexist():
             usertype = askifexist()
             is_exist = findIfStationExist(usertype)
             if is_exist and not toChange:
@@ -79,32 +87,9 @@ def askstationname(toChange=False):
                 break
     return usertype
 
-def ask_choice_commande(choix):
-    usertype = ""
-    print(f"Veuillez choisir l'une de ces commandes:")
-    print(f"1- {GAZOLINE_CHOICE}")
-    print(f"2- {DIESEL_CHOICE}")
-    print(f"3- {BOTH_GAZ_CHOICE }")
-    while True:
-      usertype = input("R- ") 
-      if usertype.isdigit():
-            if int(usertype) == 1:
-                usertype = LALUE_CONST
-                
-            elif int(usertype) == 2:
-                usertype = TABARRE_CONST
-            
-            elif int(usertype) == 3:
-                usertype = CLERCINE_CONST
-                
-            else:
-                print("Veuillez choisir une valeur entre 1 et 3")
-      else:
-        print("Entrer une valeur correcte, entre 1 et 3")
-       
-# functon to ask capacity
-def ask_commande():
-    
+
+# functon to confirm commande
+def confirm_commande():
     v_station.afficher()
     usertype = input("Voulez-vous confirmer la nouvelle commande ?\n1- Oui\n0- Non\nR- ")
     while True:
@@ -117,6 +102,48 @@ def ask_commande():
                 print("Incorrect! Le nombre doit etre 1 ou 0")
         else:
             print("Incorrect! Entrer une valeur entiere")
+
+def ask_choice_commande():
+    usertype = ""
+    print(f"Veuillez choisir l'une de ces commandes:")
+    print(f"1- {GAZOLINE_CHOICE}")
+    print(f"2- {DIESEL_CHOICE}")
+    print(f"3- {BOTH_GAZ_CHOICE }")
+    while True:
+      usertype = input("R- ") 
+      if usertype.isdigit():
+            if int(usertype) == 1:
+                if confirm_commande() == 1:
+                    v_commande.enregistrer(id=generer_id(),qte_gallon_diesel=qte_gallon_diesel(),qte_gallon_gazoline=qte_gallon_gazoline(),)
+                else:
+                    valueReturn = retryFunc()
+                    if valueReturn == 0:
+                        break
+            elif int(usertype) == 2:
+                if confirm_commande() == 1:
+                    v_commande.enregistrer(id=generer_id(), qte_gallon_diesel=qte_gallon_diesel(),
+                                           qte_gallon_gazoline=qte_gallon_gazoline(), )
+                else:
+                    valueReturn = retryFunc()
+                    if valueReturn == 0:
+                        break
+            
+            elif int(usertype) == 3:
+                if confirm_commande() == 1:
+                    v_commande.enregistrer(id=generer_id(), qte_gallon_diesel=qte_gallon_diesel(),
+                                           qte_gallon_gazoline=qte_gallon_gazoline(), )
+                else:
+                    valueReturn = retryFunc()
+                    if valueReturn == 0:
+                        break
+                
+            else:
+                print("Veuillez choisir une valeur entre 1 et 3")
+      else:
+        print("Entrer une valeur correcte, entre 1 et 3")
+       
+
+
         
        
 

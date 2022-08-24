@@ -34,7 +34,7 @@ class Commande(Station):
                 for cle, value in val.items():
                     print(f"{cle}       --> {value}")
 
-    #those function   return the total gallon diesel and gazoline of all the station 
+    #these function   return the total gallon diesel  of all the station
   def  total_gallon_diesel_maquant(self):
      total_gallon_diesel_manquant = 0.0
      capacite_diesel_lalue = functions.all_station[LALUE_CONST]["capacite_diesel"] 
@@ -52,8 +52,8 @@ class Commande(Station):
      total_gallon_diesel_manquant = capacite_total_diesel+total_sation_gallon_diesel
      return total_gallon_diesel_manquant 
 
-  def total_gallon_gazoline_maquant():
-     #those function   return the total gallon diesel and gazoline of all the station 
+  def total_gallon_gazoline_maquant(self):
+     #these function   return the total gallon  gazoline of all the station
   
      total_gallon_gazoline_manquant = 0.0
      capacite_gazoline_lalue = functions.all_station[LALUE_CONST]["capacite_diesel"] 
@@ -61,7 +61,7 @@ class Commande(Station):
      capacite_gazoline_clercine = functions.all_station[CLERCINE_CONST]["capacite_diesel"] 
      capacite_gazoline_pv = functions.all_station[PETION_VILLE_CONST]["capacite_diesel"] 
      capacite_total_gazoline = capacite_gazoline_lalue+capacite_gazoline_tabarre+capacite_gazoline_clercine+capacite_gazoline_pv
-       # Quantite total gallon diesel disponible
+       # Quantite total gallon gazoline disponible
      qte_gallon_gaz_Lalue = functions.all_station[LALUE_CONST][QTE_GAL_GAZOLINE]
      qte_gallon_gaz_Tabarre = functions.all_station[TABARRE_CONST][QTE_GAL_GAZOLINE] 
      qte_gallon_gaz_Clercine = functions.all_station[CLERCINE_CONST][QTE_GAL_GAZOLINE]
