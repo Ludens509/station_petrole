@@ -1,9 +1,10 @@
-import functions
+
 import secrets
 
+import functions
 from Commandes.commandes import Commande
 from Stations.stations import Station
-from functions import all_station, LALUE_CONST, TABARRE_CONST, CLERCINE_CONST, PETION_VILLE_CONST, \
+from functions import all_station,all_commande, LALUE_CONST, TABARRE_CONST, CLERCINE_CONST, PETION_VILLE_CONST, \
     DIESEL_CHOICE, retryFunc, BOTH_GAZ_CHOICE, GAZOLINE_CHOICE
 
 v_station = Station()
@@ -114,15 +115,14 @@ def ask_choice_commande():
       if usertype.isdigit():
             if int(usertype) == 1:
                 if confirm_commande() == 1:
-                    v_commande.enregistrer(id=generer_id(),qte_gallon_diesel=qte_gallon_diesel(),qte_gallon_gazoline=qte_gallon_gazoline(),)
+                    addCommande()
                 else:
                     valueReturn = retryFunc()
                     if valueReturn == 0:
                         break
             elif int(usertype) == 2:
                 if confirm_commande() == 1:
-                    v_commande.enregistrer(id=generer_id(), qte_gallon_diesel=qte_gallon_diesel(),
-                                           qte_gallon_gazoline=qte_gallon_gazoline(), )
+                    addCommande()
                 else:
                     valueReturn = retryFunc()
                     if valueReturn == 0:
@@ -130,8 +130,7 @@ def ask_choice_commande():
             
             elif int(usertype) == 3:
                 if confirm_commande() == 1:
-                    v_commande.enregistrer(id=generer_id(), qte_gallon_diesel=qte_gallon_diesel(),
-                                           qte_gallon_gazoline=qte_gallon_gazoline(), )
+                 addCommande()
                 else:
                     valueReturn = retryFunc()
                     if valueReturn == 0:
@@ -141,16 +140,15 @@ def ask_choice_commande():
                 print("Veuillez choisir une valeur entre 1 et 3")
       else:
         print("Entrer une valeur correcte, entre 1 et 3")
-       
 
 
-        
-       
+
 
 
 def addCommande():
 
     while True:
+
         print("============| AJOUT D'UNE COMMANDE |============")
 
         v_commande.enregistrer()

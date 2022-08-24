@@ -1,4 +1,4 @@
-from stations import Station
+from Stations.stations import Station
 from functions import LALUE_CONST,TABARRE_CONST,CLERCINE_CONST,PETION_VILLE_CONST,QTE_GAL_DIESEL,QTE_GAL_GAZOLINE
 import functions
 class Commande(Station):
@@ -27,12 +27,11 @@ class Commande(Station):
     self.date_commande = date_commande
     self.etat = etat
 
+
+    print('\nSuccessfully saved!')
+
   def afficher(self,):
-        for k, val in functions.all_commande.items():
-            if val.items():
-                print(f"\n{k.upper()}\n")
-                for cle, value in val.items():
-                    print(f"{cle}       --> {value}")
+        pass
 
     #these function   return the total gallon diesel  of all the station
   def  total_gallon_diesel_maquant(self):

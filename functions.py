@@ -13,7 +13,7 @@ QTE_GAL_GAZOLINE = "qte_dispo_gazoline"
 QTE_GAL_DIESEL = "qte_dispo_disel"
 
 all_station = {}
-all_commande = {}
+all_commande = ()
 
 def retryFunc():
     usertype = ""
