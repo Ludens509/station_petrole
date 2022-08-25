@@ -1,10 +1,40 @@
 import os
 LALUE_CONST = "lalue"
 TABARRE_CONST = "tabarre"
-CLECINE_CONST = "clercine"
+CLERCINE_CONST = "clercine"
 PETION_VILLE_CONST = "petion-ville"
 
-all_station = {}
+GAZOLINE_CONST = "gazoline"
+DIESEL_CONST = "diesel"
+GAZOLINE_CHOICE = 1
+DIESEL_CHOICE = 2
+BOTH_GAZ_CHOICE = 3
+
+ANNULER_OPTION = 'ANNULER'
+
+# objets
+all_stations = dict()
+# attributs of all_stations
+CAPACITE_GAZOLINE = "capacite_gazoline"
+CAPACITE_DIESEL = "capacite_diesel"
+QTE_GAL_GAZOLINE_DISPO = "qte_dispo_gazoline"
+QTE_GAL_DIESEL_DISPO = "qte_dispo_disel"
+PERCENT_GAL_GAZOLINE = "percent_gazoline"
+PERCENT_GAL_DIESEL = "percent_diesel"
+
+all_commandes = list()
+
+
+def findIfStationExist(name: str):
+    if name in all_stations:
+        return True
+
+    return False
+
+def findCommandeById(id: str):
+    if id in all_commandes:
+        return True
+    return False
 
 def retryFunc():
     usertype = ""

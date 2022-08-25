@@ -1,5 +1,5 @@
-import functions
-
+from functions import clearConsole
+from Commandes.menu_commande import show_all, addCommande
 
 def commande_menu():
     usertype = ""
@@ -23,12 +23,11 @@ def commande_menu():
         # switch
         match userType:
             case 1:
-                # addCommande()
+                addCommande()
                 input("\nPress enter to continue\n")
             case 2:
-                # show_all()
+                show_all()
                 input("\nPress enter to continue\n")
             case 0:
                 input("\nRetour au menu Principal\nPress enter to continue\n")
-                functions.clearConsole()
-                break
+                return clearConsole()

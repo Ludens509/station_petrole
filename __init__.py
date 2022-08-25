@@ -1,4 +1,6 @@
-from Stations.index import station_menu
+from Commandes.__init__ import commande_menu
+from Stations import station_menu
+
 
 def show_main_menu():
     userType = ""
@@ -11,7 +13,7 @@ def show_main_menu():
         print("0- Quitter")
 
         while True:
-            userType= input("R- ")
+            userType = input("R- ")
             if userType.isdigit():
                 userType = int(userType)
                 if userType >= 0 and userType <= 4:
@@ -27,7 +29,7 @@ def show_main_menu():
                 station_menu()
                 input("\nPress enter to continue\n")
             case 2:
-                print("Case 2")
+                commande_menu()
                 input("\nPress enter to continue\n")
             case 3:
                 print("Case 3")
@@ -42,6 +44,7 @@ def show_main_menu():
                 print("IP: 192.168.40.1/24 ")
                 print("\n\n\t\t G O O D   B Y E  !\n\n")
                 break
+
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':

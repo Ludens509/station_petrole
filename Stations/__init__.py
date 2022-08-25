@@ -1,5 +1,5 @@
 import functions
-from Stations.show_station_menu import show_all, show_edit_galon, addStation
+from Stations.menu_station import show_all, show_edit_galon, addStation
 
 def station_menu():
     userType = ""
@@ -37,6 +37,3 @@ def station_menu():
                 functions.clearConsole()
                 break
 
-# ================================= LOGIQUE FOR EDIT GALON =========
-def edit_galon(nom_station, type_capacite, valeur):
-    pass
