@@ -69,6 +69,7 @@ class Station():
     def changePourcentageDiesel(self,):
         self.pourcentage_diesel = self.qte_gallon_diesel_dispo / self.capacite_diesel * 100
 
+
     def afficher(self,):
         for k, val in functions.all_station.items():
             if val.items():
@@ -78,3 +79,4 @@ class Station():
 
     def modifier(self, nom):
         pass
+
