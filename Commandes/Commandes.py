@@ -1,3 +1,4 @@
+import functions
 from Stations.Stations import StationClass
 from functions import all_stations, LALUE_CONST, TABARRE_CONST, CLERCINE_CONST, PETION_VILLE_CONST, \
     QTE_GAL_DIESEL_DISPO, QTE_GAL_GAZOLINE_DISPO, all_commandes, CAPACITE_GAZOLINE, CAPACITE_DIESEL
@@ -29,11 +30,11 @@ class Commande(StationClass):
         self.date_commande = date_commande
         self.etat = etat
 
-        all_commandes.append(id, qte_gallon_diesel, qte_gallon_gazoline, date_commande, etat)
+        functions.all_commandes.extend([id, qte_gallon_diesel, qte_gallon_gazoline, date_commande, etat])
         print('\nSuccessfully saved!')
 
     def afficher(self, ):
-        for i in range(len(all_commandes)):
+        for i in range(len(functions.all_commandes)):
             print("====LISTE DES COMMANDE====")
             print(all_commandes[i],)
 

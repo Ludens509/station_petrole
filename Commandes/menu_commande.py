@@ -2,10 +2,12 @@ import secrets
 from datetime import date
 from Commandes.Commandes import Commande
 from Stations.Stations import StationClass
-from functions import clearConsole, retryFunc, GAZOLINE_CHOICE, DIESEL_CHOICE, BOTH_GAZ_CHOICE, findCommandeById
+from functions import clearConsole, retryFunc, GAZOLINE_CHOICE, DIESEL_CHOICE, BOTH_GAZ_CHOICE, findCommandeById, \
+    GAZOLINE_CONST, DIESEL_CONST
 
 v_station = StationClass()
 v_commande = Commande()
+
 
 def generer_id():
     # generate 1 secure random numbers between 10 and 500
@@ -19,6 +21,7 @@ def generer_id():
 
     return secret_id
 
+
 # generate system date
 def generer_date():
     today = date.today()
@@ -26,6 +29,8 @@ def generer_date():
     date_sys = today.strftime("%b-%d-%Y")
     # print("d4 =", d4)
     return date_sys
+
+
 # generate etat
 def generer_etat(state):
     etat = state
@@ -35,8 +40,9 @@ def generer_etat(state):
 # functon to confirm commande
 def confirm_commande():
     v_station.afficher()
-    usertype = input("Voulez-vous confirmer la nouvelle commande ?\n1- Oui\n0- Non\nR- ")
+    usertype =""
     while True:
+        print("Voulez-vous confirmer la nouvelle commande ?\n1- Oui\n0- Non\n ")
         usertype = input("R- ")
         if usertype.isdigit():
             usertype = int(usertype)
@@ -47,37 +53,56 @@ def confirm_commande():
         else:
             print("Incorrect! Entrer une valeur entiere")
 
+def qte_gallon_diesel():
+    qte_gallon_diesel = (1.10 * v_commande.total_gallon_diesel_maquant())
+    return qte_gallon_diesel
 
-def ask_choice_commande():
+
+def qte_gallon_gazoline():
+    qte_gallon_gazoline = (1.25 * v_commande.total_gallon_gazoline_maquant())
+    return qte_gallon_gazoline
+
+
+def addCommande():
     usertype = ""
     print(f"Veuillez choisir l'une de ces commandes:")
-    print(f"1- {GAZOLINE_CHOICE}")
-    print(f"2- {DIESEL_CHOICE}")
-    print(f"3- {BOTH_GAZ_CHOICE}")
+    print(f"1- {GAZOLINE_CONST}\n")
+    print(f"2- {DIESEL_CONST}\n")
+    print(f"3- LES DEUX(2)\n")
     while True:
         usertype = input("R- ")
         if usertype.isdigit():
             if int(usertype) == 1:
-                if confirm_commande() == 1:
-                    # addCommande()
-                    print("Add commande function")
+                if confirm_commande() == GAZOLINE_CHOICE:
+                    qte_gallon_gazoline = 0
+                    qte_gallon_gazoline = qte_gallon_gazoline()
+
+                    saveCommande(qte_gallon_gazoline,0)
+
                 else:
                     valueReturn = retryFunc()
                     if valueReturn == 0:
                         break
-            elif int(usertype) == 2:
+            elif int(usertype) == DIESEL_CHOICE:
                 if confirm_commande() == 1:
-                    # addCommande()
-                    print("Add commande function")
+                    qte_gallon_diesel = 0.0
+                    qte_gallon_diesel = qte_gallon_diesel()
+
+                    saveCommande(0,qte_gallon_diesel)
+                    # print("Add commande function")
                 else:
                     valueReturn = retryFunc()
                     if valueReturn == 0:
                         break
 
-            elif int(usertype) == 3:
+            elif int(usertype) == BOTH_GAZ_CHOICE:
                 if confirm_commande() == 1:
-                    # addCommande()
-                    print("Add commande function")
+                    qte_gallon_diesel,qte_gallon_gazoline = 0,0
+
+                    qte_gallon_diesel = qte_gallon_diesel()
+                    qte_gallon_gazoline = qte_gallon_gazoline()
+                    saveCommande(qte_gallon_gazoline,qte_gallon_diesel)
+                    # print("Add commande function")
                 else:
                     valueReturn = retryFunc()
                     if valueReturn == 0:
@@ -89,29 +114,22 @@ def ask_choice_commande():
             print("Entrer une valeur correcte, entre 1 et 3")
 
 
-def qte_gallon_diesel():
-    qte_gallon_diesel = (1.10 * v_commande.total_gallon_diesel_maquant())
-    return qte_gallon_diesel
 
-def qte_gallon_gazoline():
-    qte_gallon_gazoline = (1.25 * v_commande.total_gallon_gazoline_maquant())
-    return qte_gallon_gazoline
-
-
-def addCommande():
-    usertype=""
+def saveCommande(v_qte_gallon_gazoline : float,v_qte_gallon_diesel : float):
+    usertype = ""
 
     print("============| AJOUT D'UNE COMMANDE |============")
     print("Etat des stations")
     v_station.afficher()
     while True:
         id = generer_id()
-        qte_gallon_gazoline = qte_gallon_gazoline()
-        qte_gallon_diesel = qte_gallon_diesel()
-        date_commande  = generer_date()
-        state  = "N"
+        qte_gallon_gazoline = v_qte_gallon_gazoline
+        qte_gallon_diesel = v_qte_gallon_diesel
+        date_commande = generer_date()
+        state = "N"
         etat = generer_etat(state)
-        v_commande.enregistrer(id=id,qte_gallon_gazoline=qte_gallon_gazoline,qte_gallon_diesel= qte_gallon_diesel,date_commande=date_commande,etat=etat)
+        v_commande.enregistrer(id=id, qte_gallon_gazoline=qte_gallon_gazoline, qte_gallon_diesel=qte_gallon_diesel,
+                               date_commande=date_commande, etat=etat)
         input("\nPress any key to continue")
 
         valueReturn = retryFunc()
@@ -123,4 +141,4 @@ def addCommande():
 
 def show_all():
     print("\n\n============| AFFICHER TOUTES LES COMMANDES |============")
-    # v_station.afficher()
+    v_commande.afficher()
