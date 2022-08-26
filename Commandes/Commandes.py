@@ -1,5 +1,7 @@
 from Stations.Stations import StationClass
-from functions import all_stations, LALUE_CONST, TABARRE_CONST, CLERCINE_CONST, PETION_VILLE_CONST, QTE_GAL_DIESEL_DISPO, QTE_GAL_GAZOLINE_DISPO
+from functions import all_stations, LALUE_CONST, TABARRE_CONST, CLERCINE_CONST, PETION_VILLE_CONST, \
+    QTE_GAL_DIESEL_DISPO, QTE_GAL_GAZOLINE_DISPO, all_commandes, CAPACITE_GAZOLINE, CAPACITE_DIESEL
+
 
 class Commande(StationClass):
   # capacite variables
@@ -28,7 +30,7 @@ class Commande(StationClass):
     self.date_commande = date_commande
     self.etat = etat
 
-
+    all_commandes.append(id,qte_gallon_diesel,qte_gallon_gazoline,date_commande,etat)
     print('\nSuccessfully saved!')
 
   def afficher(self,):
@@ -37,10 +39,10 @@ class Commande(StationClass):
     #these function   return the total gallon diesel  of all the station
   def  total_gallon_diesel_maquant(self):
      total_gallon_diesel_manquant = 0.0
-     capacite_diesel_lalue = all_stations[LALUE_CONST]["capacite_diesel"]
-     capacite_diesel_tabarre = all_stations[TABARRE_CONST]["capacite_diesel"]
-     capacite_diesel_clercine = all_stations[CLERCINE_CONST]["capacite_diesel"]
-     capacite_diesel_pv = all_stations[PETION_VILLE_CONST]["capacite_diesel"]
+     capacite_diesel_lalue = all_stations[LALUE_CONST][CAPACITE_DIESEL]
+     capacite_diesel_tabarre = all_stations[TABARRE_CONST][CAPACITE_DIESEL]
+     capacite_diesel_clercine = all_stations[CLERCINE_CONST][CAPACITE_DIESEL]
+     capacite_diesel_pv = all_stations[PETION_VILLE_CONST][CAPACITE_DIESEL]
      capacite_total_diesel = capacite_diesel_lalue+capacite_diesel_tabarre+capacite_diesel_clercine+capacite_diesel_pv
        # Quantite total gallon diesel disponible
      qte_gallon_dsel_Lalue = all_stations[LALUE_CONST][QTE_GAL_DIESEL_DISPO]
@@ -56,10 +58,10 @@ class Commande(StationClass):
      #these function   return the total gallon  gazoline of all the station
   
      total_gallon_gazoline_manquant = 0.0
-     capacite_gazoline_lalue = all_stations[LALUE_CONST]["capacite_diesel"]
-     capacite_gazoline_tabarre = all_stations[TABARRE_CONST]["capacite_diesel"]
-     capacite_gazoline_clercine = all_stations[CLERCINE_CONST]["capacite_diesel"]
-     capacite_gazoline_pv = all_stations[PETION_VILLE_CONST]["capacite_diesel"]
+     capacite_gazoline_lalue = all_stations[LALUE_CONST][CAPACITE_GAZOLINE]
+     capacite_gazoline_tabarre = all_stations[TABARRE_CONST][CAPACITE_GAZOLINE ]
+     capacite_gazoline_clercine = all_stations[CLERCINE_CONST][CAPACITE_GAZOLINE ]
+     capacite_gazoline_pv = all_stations[PETION_VILLE_CONST][CAPACITE_GAZOLINE ]
      capacite_total_gazoline = capacite_gazoline_lalue+capacite_gazoline_tabarre+capacite_gazoline_clercine+capacite_gazoline_pv
        # Quantite total gallon gazoline disponible
      qte_gallon_gaz_Lalue = all_stations[LALUE_CONST][QTE_GAL_GAZOLINE_DISPO]
