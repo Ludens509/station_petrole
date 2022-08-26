@@ -1,4 +1,5 @@
 import secrets
+from datetime import date
 from Commandes.Commandes import Commande
 from Stations.Stations import StationClass
 from functions import clearConsole, retryFunc, GAZOLINE_CHOICE, DIESEL_CHOICE, BOTH_GAZ_CHOICE, findCommandeById
@@ -17,6 +18,18 @@ def generer_id():
         generer_id()
 
     return secret_id
+
+# generate system date
+def generer_date():
+    today = date.today()
+    # Month abbreviation, day and year
+    date_sys = today.strftime("%b-%d-%Y")
+    # print("d4 =", d4)
+    return date_sys
+# generate etat
+def generer_etat(state):
+    etat = state
+    return etat
 
 
 # functon to confirm commande
@@ -92,8 +105,13 @@ def addCommande():
     print("Etat des stations")
     v_station.afficher()
     while True:
-
-        v_commande.enregistrer()
+        id = generer_id()
+        qte_gallon_gazoline = qte_gallon_gazoline()
+        qte_gallon_diesel = qte_gallon_diesel()
+        date_commande  = generer_date()
+        state  = "N"
+        etat = generer_etat(state)
+        v_commande.enregistrer(id=id,qte_gallon_gazoline=qte_gallon_gazoline,qte_gallon_diesel= qte_gallon_diesel,date_commande=date_commande,etat=etat)
         input("\nPress any key to continue")
 
         valueReturn = retryFunc()
