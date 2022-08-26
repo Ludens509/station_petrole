@@ -70,11 +70,12 @@ def addCommande():
     print(f"2- {DIESEL_CONST}\n")
     print(f"3- LES DEUX(2)\n")
     while True:
+        qte_gallon_gazoline = 0.0
+        qte_gallon_diesel = 0.0
         usertype = input("R- ")
         if usertype.isdigit():
             if int(usertype) == 1:
                 if confirm_commande() == GAZOLINE_CHOICE:
-                    qte_gallon_gazoline = 0
                     qte_gallon_gazoline = qte_gallon_gazoline()
 
                     saveCommande(qte_gallon_gazoline,0)
@@ -85,7 +86,6 @@ def addCommande():
                         break
             elif int(usertype) == DIESEL_CHOICE:
                 if confirm_commande() == 1:
-                    qte_gallon_diesel = 0.0
                     qte_gallon_diesel = qte_gallon_diesel()
 
                     saveCommande(0,qte_gallon_diesel)
@@ -97,12 +97,10 @@ def addCommande():
 
             elif int(usertype) == BOTH_GAZ_CHOICE:
                 if confirm_commande() == 1:
-                    qte_gallon_diesel,qte_gallon_gazoline = 0,0
-
                     qte_gallon_diesel = qte_gallon_diesel()
                     qte_gallon_gazoline = qte_gallon_gazoline()
                     saveCommande(qte_gallon_gazoline,qte_gallon_diesel)
-                    # print("Add commande function")
+
                 else:
                     valueReturn = retryFunc()
                     if valueReturn == 0:
