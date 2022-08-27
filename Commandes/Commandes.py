@@ -34,8 +34,8 @@ class Commande(StationClass):
         print('\nSuccessfully saved!')
 
     def afficher(self, ):
+        print("====LISTE DES COMMANDE====")
         for i in range(len(functions.all_commandes)):
-            print("====LISTE DES COMMANDE====")
             print(all_commandes[i],)
 
 
