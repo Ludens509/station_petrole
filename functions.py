@@ -23,7 +23,7 @@ PERCENT_GAL_GAZOLINE = "percent_gazoline"
 PERCENT_GAL_DIESEL = "percent_diesel"
 
 all_commandes = list()
-
+all_approvisionnements =set()
 
 def findIfStationExist(name: str):
     if name in all_stations:
