@@ -1,3 +1,4 @@
+from Approvisionnements import approvisionnement_menu
 from Commandes.__init__ import commande_menu
 from Stations import station_menu
 
@@ -32,7 +33,7 @@ def show_main_menu():
                 commande_menu()
                 input("\nPress enter to continue\n")
             case 3:
-                print("Case 3")
+                approvisionnement_menu()
                 input("\nPress enter to continue\n")
             case 4:
                 print("Case 4")

@@ -3,9 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="23af095b-25fb-4dc6-b2ac-38e8dabf1aa1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Approvisionnements/Approvisionnements.py" beforeDir="false" afterPath="$PROJECT_DIR$/Approvisionnements/Approvisionnements.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Approvisionnements/menu_aprovisionnements.py" beforeDir="false" afterPath="$PROJECT_DIR$/Approvisionnements/menu_aprovisionnements.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Approvisionnements/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Approvisionnements/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Approvisionnements/menu_aprovisionnements.py" beforeDir="false" afterPath="$PROJECT_DIR$/Approvisionnements/menu_approvisionnements.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Commandes/menu_commande.py" beforeDir="false" afterPath="$PROJECT_DIR$/Commandes/menu_commande.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

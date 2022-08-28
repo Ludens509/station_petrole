@@ -1,5 +1,7 @@
 import secrets
 from datetime import date
+
+import functions
 from Commandes.Commandes import Commande
 from Stations.Stations import StationClass
 from functions import clearConsole, retryFunc, GAZOLINE_CHOICE, DIESEL_CHOICE, BOTH_GAZ_CHOICE, findCommandeById, \
@@ -27,13 +29,17 @@ def generer_date():
     today = date.today()
     # Month abbreviation, day and year
     date_sys = today.strftime("%b-%d-%Y")
-    # print("d4 =", d4)
     return date_sys
 
 
 # generate etat
-def generer_etat(state):
-    etat = state
+def generer_etat():
+    etat = "N"
+    if etat in functions.all_commandes:
+        etat = "P"
+    else:
+        etat = "N"
+
     return etat
 
 
@@ -125,7 +131,7 @@ def saveCommande(v_qte_gallon_gazoline : float,v_qte_gallon_diesel : float):
         qte_gallon_diesel = v_qte_gallon_diesel
         date_commande = generer_date()
         state = "N"
-        etat = generer_etat(state)
+        etat = generer_etat()
         v_commande.enregistrer(id=id, qte_gallon_gazoline=qte_gallon_gazoline, qte_gallon_diesel=qte_gallon_diesel,
                                date_commande=date_commande, etat=etat)
         input("\nPress any key to continue")
