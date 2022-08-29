@@ -47,8 +47,7 @@ def addCommande():
 
             # stop if user not confirm the command
             if not confirm_id:
-                print("\nWe can't confirm your identity\n")
-                input("Press any key to continue\n")
+                print("\nVous avez choisi de ne pas continuer\n")
                 return
 
             if usertype == GAZOLINE_CHOICE:
@@ -64,7 +63,6 @@ def addCommande():
             elif usertype == BOTH_GAZ_CHOICE:
                 v_qte_gallon_diesel = getQteGallonDieselToCommand()
                 v_qte_gallon_gazoline = getQteGallonGazolineToCommand()
-                print(f"commdand:\nDies: {v_qte_gallon_diesel}\nGaz: {v_qte_gallon_gazoline}")
                 saveCommande(v_qte_gallon_gazoline=v_qte_gallon_gazoline, v_qte_gallon_diesel=v_qte_gallon_diesel)
                 return
 

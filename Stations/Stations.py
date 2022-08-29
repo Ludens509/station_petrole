@@ -219,8 +219,8 @@ class StationClass:
 
         somme_quantites = self.sommeQtes()
         if somme_quantites.__sizeof__() > 0:
-            print("========== TOTAL DES STATION ===============")
+            print("\n\t\t=============== TOTAL DES STATION ===============\n")
             print(f"Qte gazoline manquee : {somme_quantites[TOTAL_GAL_GAZOLINE_MANQUEE]}")
-            print(f"Qte diesel manquee : {somme_quantites[TOTAL_GAL_DIESEL_MANQUEE]}")
+            print(f"Qte diesel manquee : {somme_quantites[TOTAL_GAL_DIESEL_MANQUEE]}\n")
 
         input("Press any key to continue")

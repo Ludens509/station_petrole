@@ -1,4 +1,5 @@
 import os
+# import pyautogui
 from datetime import date
 
 LALUE_CONST = "lalue"
@@ -51,14 +52,20 @@ all_approvisionnements = set()
 all_ventes = list()
 
 # attributes
-PRICE_GAZOLINE = "prix_gazoline"
-PRICE_DIESEL = "prix_diesel"
+PRICE_GAZOLINE = 250
+PRICE_DIESEL = 353
 
 
 def findIfStationExist(name: str):
     if name in all_stations:
         return True
 
+    return False
+
+
+def findIfQteIsOver(name: str):
+    if name in all_stations:
+        return True
     return False
 
 
@@ -87,6 +94,8 @@ def clearConsole():
     if os.name in ('nt', 'dos'):  # If Machine is running on Windows, use cls
         command = 'cls'
     os.system(command)
+    # pycham
+    # pyautogui.hotkey('command', 'l')
 
 
 #  ===============================
@@ -112,7 +121,9 @@ def generer_etat(state):
 # functon to confirm commande
 def confirm_identity() -> bool:
     usertype = ""
-    print("Vous devez confirmer pour continuer ?\n1- Oui\n0- Non\n")
+    is_confirm = False
+    print("\n\t\t ========== PRIVILEGE ADMINISTRATEUR ==============")
+    print("\nPour continuer, vous devez etre un admin (ou contacter votre supperieur)\nVoulez-vous continuer ?\n1- Oui\n0- Non\n")
     while True:
         usertype = input("R- ")
         if usertype.isdigit():
@@ -120,8 +131,37 @@ def confirm_identity() -> bool:
             if usertype == 0:
                 return False
             elif usertype == 1:
-                return True
+                name = input("Veuillez entrer votre nom:\nR- ")
+                pwd = input("Veuillez entrer votre mot de passe:\nR- ")
+                # file access
+                is_confirm = fileAccess(nom=name, pwd=pwd)
+                if is_confirm:
+                    print("Identity is confirm")
+                    return True
+                else:
+                    return False
             else:
                 print("Incorrect! Le nombre doit etre 0 ou 1")
         else:
             print("Incorrect! Entrer une valeur entiere")
+
+
+def fileAccess(nom: str, pwd: str) -> bool:
+    filepath = "Documents/auth.txt"
+    find_user = False
+    try:
+        with open(filepath, mode="r", encoding='utf-8') as file:
+            for line in file:
+                data = line.split("|")
+                if data[0] == nom and data[1].replace("\n", "") == pwd:
+                    find_user = True
+                    break
+            # end for
+
+            if find_user:
+                return True
+            else:
+                return False
+        # end with
+    finally:
+        file.close()

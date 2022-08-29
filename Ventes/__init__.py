@@ -1,4 +1,5 @@
 import functions
+from Ventes.menu_ventes import addVente, show_all_ventes
 
 
 def ventes_menu():
@@ -23,14 +24,13 @@ def ventes_menu():
         # switch
         match userType:
             case 1:
-                # addVente()
-                print("add vente")
+                addVente()
                 input("\nPress enter to continue\n")
             case 2:
-                # show_all()
+                show_all_ventes()
                 print("all ventes")
                 input("\nPress enter to continue\n")
             case 0:
                 input("\nRetour au menu Principal\nPress enter to continue\n")
-                functions.clearConsole()
+                # functions.clearConsole()
                 break

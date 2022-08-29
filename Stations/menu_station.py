@@ -9,7 +9,7 @@ reponse_in_function = None
 # ========================= function
 
 # function to ask name of a station
-def askstationname():
+def askstationname() -> str:
     usertype = ""
     name_return = ""
     print(f"Veuillez choisir l'une de ces station:")
@@ -70,7 +70,7 @@ def ask_capacity(type_galon):
 # function to ask_choice_which_capacity
 def ask_which_capacity() -> int:
     usertype = ""
-    print("Choisissez l'une de ces capacites:")
+    print("Choisissez l'une de ces option:")
     print(f"1- {GAZOLINE_CONST}\n"
           f"2- {DIESEL_CONST}\n"
           f"3- Les deux(2)\n"

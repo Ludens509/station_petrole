@@ -19,7 +19,6 @@ class Commande:
         # generate 1 secure random numbers between 10 and 500
         for x in range(0, 1):
             secret_id = (10 + secrets.randbelow(500)).__str__()
-            print(secret_id)  # for show but no need
 
         # recursive function : get unique ID in all_commandes
         if functions.findCommandeById(secret_id):
@@ -30,8 +29,6 @@ class Commande:
     def enregistrer(self, qte_gallon_diesel: float, qte_gallon_gazoline: float):
         self.qte_gallon_diesel = qte_gallon_diesel
         self.qte_gallon_gazoline = qte_gallon_gazoline
-
-        print(f"{qte_gallon_diesel} & {qte_gallon_gazoline}")
 
         self.id = self.generer_id()
         self.date_commande = functions.generer_date()
@@ -71,4 +68,4 @@ class Commande:
                     # functions.all_commandes[i][key] = functions.P_STATE_COMMAND
                     pass
 
-        print("Changer etat")
+        print("NEED ATENTIONChanger etat")

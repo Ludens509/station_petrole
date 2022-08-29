@@ -30,15 +30,16 @@ def show_main_menu():
         match userType:
             case 1:
                 station_menu()
-                # functions.clearConsole()
+                functions.clearConsole()
             case 2:
                 commande_menu()
+                functions.clearConsole()
             case 3:
                 approvisionnement_menu()
+                functions.clearConsole()
             case 4:
                 ventes_menu()
-                # functions.clearConsole()
-                input("\nPress enter to continue\n")
+                functions.clearConsole()
             case 0:
                 print("Case 0")
                 print("\n\n\t\t G O O D   B Y E  !\n\n")
