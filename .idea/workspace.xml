@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="23af095b-25fb-4dc6-b2ac-38e8dabf1aa1" name="Changes" comment="">
+    <list default="true" id="f8a5b9f1-6015-4533-b5ad-fa5dfbe136c9" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Approvisionnements/Approvisionnements.py" beforeDir="false" afterPath="$PROJECT_DIR$/Approvisionnements/Approvisionnements.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Approvisionnements/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Approvisionnements/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Approvisionnements/menu_aprovisionnements.py" beforeDir="false" afterPath="$PROJECT_DIR$/Approvisionnements/menu_aprovisionnements.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Commandes/Commandes.py" beforeDir="false" afterPath="$PROJECT_DIR$/Commandes/Commandes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Commandes/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Commandes/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Commandes/menu_commande.py" beforeDir="false" afterPath="$PROJECT_DIR$/Commandes/menu_commande.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stations/Stations.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stations/Stations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stations/menu_station.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stations/menu_station.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ventes/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ventes/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/functions.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -167,7 +174,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="23af095b-25fb-4dc6-b2ac-38e8dabf1aa1" name="Changes" comment="" />
+      <changelist id="f8a5b9f1-6015-4533-b5ad-fa5dfbe136c9" name="Changes" comment="" />
       <created>1660837645490</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />

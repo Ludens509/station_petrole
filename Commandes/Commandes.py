@@ -1,77 +1,74 @@
+import secrets
+
 import functions
-from Stations.Stations import StationClass
 from functions import all_stations, LALUE_CONST, TABARRE_CONST, CLERCINE_CONST, PETION_VILLE_CONST, \
-    QTE_GAL_DIESEL_DISPO, QTE_GAL_GAZOLINE_DISPO, all_commandes, CAPACITE_GAZOLINE, CAPACITE_DIESEL
+    QTE_GAL_DIESEL_DISPO, QTE_GAL_GAZOLINE_DISPO, all_commandes, CAPACITE_GAZOLINE, CAPACITE_DIESEL, generer_date, \
+    generer_etat
 
 
-class Commande(StationClass):
-    # capacite variables
-    capacite_diesel_lalue, capacite_gazoline_lalue = 0, 0
-    capacite_diesel_tabarre, capacite_gazoline_tabarre = 0, 0
-    capacite_diesel_clercine, capacite_gazoline_clercine = 0, 0
-    capacite_diesel_pv, capacite_gazoline_pv = 0, 0
-    capacite_total_diesel = 0.0
-    capacite_total_gazoline = 0.0
-    #  quantite variables
-    qte_gallon_gaz_Lalue, qte_gallon_dsel_Lalue = 0, 0
-    qte_gallon_gaz_Tabarre, qte_gallon_dsel_Tabbare = 0, 0
-    qte_gallon_gaz_Clercine, qte_gallon_dsel_Clercine = 0, 0
-    qte_gallon_gaz_pv, qte_gallon_dsel_pv = 0, 0
-    total_sation_gallon_diesel = 0.0
-    total_sation_gallon_gazoline = 0.0
+class Commande:
 
     def __init__(self, ):
-        StationClass.__init__(self, )
+        self.etat = str()
+        self.id = int()
+        self.date_commande = str()
+        self.qte_gallon_gazoline = float()
+        self.qte_gallon_diesel = float()
 
-    def enregistrer(self, id, qte_gallon_diesel, qte_gallon_gazoline, date_commande, etat):
-        self.id = id
+    def generer_id(self, ) -> int:
+        # generate 1 secure random numbers between 10 and 500
+        for x in range(0, 1):
+            secret_id = (10 + secrets.randbelow(500)).__str__()
+            print(secret_id)  # for show but no need
+
+        # recursive function : get unique ID in all_commandes
+        if functions.findCommandeById(secret_id):
+            self.generer_id()
+
+        return secret_id
+
+    def enregistrer(self, qte_gallon_diesel: float, qte_gallon_gazoline: float):
         self.qte_gallon_diesel = qte_gallon_diesel
         self.qte_gallon_gazoline = qte_gallon_gazoline
-        self.date_commande = date_commande
-        self.etat = etat
 
-        functions.all_commandes.extend([id, qte_gallon_diesel, qte_gallon_gazoline, date_commande, etat])
+        print(f"{qte_gallon_diesel} & {qte_gallon_gazoline}")
+
+        self.id = self.generer_id()
+        self.date_commande = functions.generer_date()
+        self.etat = functions.N_STATE_COMMAND
+
+        # to change old commands' state on 'P'
+        self.changeStateAllCommands()
+        # command_dict =
+        functions.all_commandes.append({
+            functions.COMMAND_ID: self.id,
+            functions.COMMAND_QTE_GAZOLINE: self.qte_gallon_diesel,
+            functions.COMMAND_QTE_DIESEL: self.qte_gallon_gazoline,
+            functions.COMMAND_DATE: self.date_commande,
+            functions.COMMAND_STATE: self.etat
+        })
+
         print('\nSuccessfully saved!')
 
     def afficher(self, ):
-        print("====LISTE DES COMMANDE====")
-        for i in range(len(functions.all_commandes)):
-            print(all_commandes[i],)
 
+        if len(functions.all_commandes) > 0:
+            for i in functions.all_commandes:
+                for key, values in i.items():
+                    print(f"{key} : {values} ")
+                # end for
+                print("\n")
+            # end for
+        else:
+            print("\nNo command found\n")
 
-    # these function   return the total gallon diesel  of all the station
-    def total_gallon_diesel_maquant(self):
-        total_gallon_diesel_manquant = 0.0
-        capacite_diesel_lalue = all_stations[LALUE_CONST][CAPACITE_DIESEL]
-        capacite_diesel_tabarre = all_stations[TABARRE_CONST][CAPACITE_DIESEL]
-        capacite_diesel_clercine = all_stations[CLERCINE_CONST][CAPACITE_DIESEL]
-        capacite_diesel_pv = all_stations[PETION_VILLE_CONST][CAPACITE_DIESEL]
-        capacite_total_diesel = capacite_diesel_lalue + capacite_diesel_tabarre + capacite_diesel_clercine + capacite_diesel_pv
-        # Quantite total gallon diesel disponible
-        qte_gallon_dsel_Lalue = all_stations[LALUE_CONST][QTE_GAL_DIESEL_DISPO]
-        qte_gallon_dsel_Tabarre = all_stations[TABARRE_CONST][QTE_GAL_DIESEL_DISPO]
-        qte_gallon_dsel_Clercine = all_stations[CLERCINE_CONST][QTE_GAL_DIESEL_DISPO]
-        qte_gallon_dsel_pv = all_stations[PETION_VILLE_CONST][QTE_GAL_DIESEL_DISPO]
-        total_sation_gallon_diesel = qte_gallon_dsel_Lalue + qte_gallon_dsel_Tabarre + qte_gallon_dsel_Clercine + qte_gallon_dsel_pv
+        # end if
 
-        total_gallon_diesel_manquant = capacite_total_diesel + total_sation_gallon_diesel
-        return total_gallon_diesel_manquant
+    def changeStateAllCommands(self,):
+        for i in functions.all_commandes:
+            for key, values in i.items():
+                if key == functions.COMMAND_STATE:
+                    # functions.all_commandes[i][key] = functions.P_STATE_COMMAND
+                    pass
 
-    def total_gallon_gazoline_maquant(self):
-        # these function   return the total gallon  gazoline of all the station
-
-        total_gallon_gazoline_manquant = 0.0
-        capacite_gazoline_lalue = all_stations[LALUE_CONST][CAPACITE_GAZOLINE]
-        capacite_gazoline_tabarre = all_stations[TABARRE_CONST][CAPACITE_GAZOLINE]
-        capacite_gazoline_clercine = all_stations[CLERCINE_CONST][CAPACITE_GAZOLINE]
-        capacite_gazoline_pv = all_stations[PETION_VILLE_CONST][CAPACITE_GAZOLINE]
-        capacite_total_gazoline = capacite_gazoline_lalue + capacite_gazoline_tabarre + capacite_gazoline_clercine + capacite_gazoline_pv
-        # Quantite total gallon gazoline disponible
-        qte_gallon_gaz_Lalue = all_stations[LALUE_CONST][QTE_GAL_GAZOLINE_DISPO]
-        qte_gallon_gaz_Tabarre = all_stations[TABARRE_CONST][QTE_GAL_GAZOLINE_DISPO]
-        qte_gallon_gaz_Clercine = all_stations[CLERCINE_CONST][QTE_GAL_GAZOLINE_DISPO]
-        qte_gallon_gaz_pv = all_stations[PETION_VILLE_CONST][QTE_GAL_GAZOLINE_DISPO]
-        total_station_gallon_gazoline = qte_gallon_gaz_Lalue + qte_gallon_gaz_Tabarre + qte_gallon_gaz_Clercine + qte_gallon_gaz_pv
-
-        total_gallon_gazoline_manquant = capacite_total_gazoline - total_station_gallon_gazoline
-        return total_gallon_gazoline_manquant
+        print("Changer etat")

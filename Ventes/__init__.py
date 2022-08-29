@@ -1,7 +1,7 @@
 import functions
 
 
-def menu_menu():
+def ventes_menu():
     userType = ""
     while True:
         print("============| MENU VENTES |============")
@@ -24,9 +24,11 @@ def menu_menu():
         match userType:
             case 1:
                 # addVente()
+                print("add vente")
                 input("\nPress enter to continue\n")
             case 2:
                 # show_all()
+                print("all ventes")
                 input("\nPress enter to continue\n")
             case 0:
                 input("\nRetour au menu Principal\nPress enter to continue\n")

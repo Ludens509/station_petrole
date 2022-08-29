@@ -1,40 +1,53 @@
-import secrets
-from datetime import date
-
 from Approvisionnements.Approvisionnements import Approvisionnement
-from functions import findCommandeById
+from functions import findCommandeById, confirm_identity
 
 v_approvisionnement = Approvisionnement()
 
-def generer_id():
-    # generate 1 secure random numbers between 10 and 500
 
-    for x in range(0, 1):
-        secret_id = (10 + secrets.randbelow(500)).__str__()
-        print(secret_id)  # for show but no need
-    # recursive function : get unique ID in all_commandes
-    if findCommandeById(secret_id):
-        generer_id()
+# ================================== AJOUTER UN APPROVISIONNEMENT ===============================
 
-    return secret_id
+def addApprovisionnement():
+    usertype = ""
+
+    print("Pour lancer un approvisionnement,")
+    print(f"Veuillez d'abord confirmer votre identite. Etes-vous un admin ?")
+    print(f"1- Oui")
+    print("0- Non")
+
+    while True:
+        usertype = input("R- ")
+        if usertype.isdigit():
+            usertype = int(usertype)
+
+            # stop if user want to return
+            if usertype == 0:
+                return
+
+            # if user want to confirm
+            elif usertype == 1:
+                confirm_id = False
+                confirm_id = confirm_identity()
+
+                # stop if user not confirm the command
+                if not confirm_id:
+                    print("\nWe can't confirm your identity\n")
+                    input("Press any key to continue\n")
+                    return
+
+                # l'approvisionnement peut etre lancee
+                #v_approvisionnement.enregistrer()
+
+                # important to close the function
+                return
+
+            else:
+                print("Veuillez choisir une valeur entre 0 et 1")
+        else:
+            print("Entrer une valeur correcte, entre 0 et 1")
 
 
-# generate system date
-def generer_date():
-    today = date.today()
-    # Month abbreviation, day and year
-    date_sys = today.strftime("%b-%d-%Y")
-    # print("d4 =", d4)
-    return date_sys
+# ================================== AFFICHER APPROVISIONNEMENT ===============================
 
-
-# generate etat
-def generer_etat(state):
-    etat = state
-    return etat
-
-# ================================== AFFICHER TOUTES LES APPROVISIONNEMENTS ===============================
-
-def show_all():
+def show_all_approvisionnement():
     print("\n\n============| AFFICHER TOUTES LES APPROVISIONNEMENTS |============")
-    v_approvisionnement.afficher()
+    # v_approvisionnement.afficher()

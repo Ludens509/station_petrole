@@ -1,5 +1,8 @@
+import functions
+from Approvisionnements import approvisionnement_menu
 from Commandes.__init__ import commande_menu
 from Stations import station_menu
+from Ventes import ventes_menu
 
 
 def show_main_menu():
@@ -27,21 +30,17 @@ def show_main_menu():
         match userType:
             case 1:
                 station_menu()
-                input("\nPress enter to continue\n")
+                # functions.clearConsole()
             case 2:
                 commande_menu()
-                input("\nPress enter to continue\n")
             case 3:
-                print("Case 3")
-                input("\nPress enter to continue\n")
+                approvisionnement_menu()
             case 4:
-                print("Case 4")
-
+                ventes_menu()
+                # functions.clearConsole()
                 input("\nPress enter to continue\n")
             case 0:
                 print("Case 0")
-                print("Domaine name: inuka.edu")
-                print("IP: 192.168.40.1/24 ")
                 print("\n\n\t\t G O O D   B Y E  !\n\n")
                 break
 

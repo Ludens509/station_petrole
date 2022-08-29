@@ -1,3 +1,4 @@
+from Stations.Stations import StationClass
 from functions import clearConsole
 from Commandes.menu_commande import show_all, addCommande
 
@@ -23,6 +24,8 @@ def commande_menu():
         # switch
         match userType:
             case 1:
+                print("\n\t\t\t -----------| ETAT DES STATIONS |-----------")
+                StationClass().afficherQuantiteGallon()
                 addCommande()
                 input("\nPress enter to continue\n")
             case 2:
