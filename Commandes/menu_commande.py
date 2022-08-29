@@ -1,5 +1,7 @@
 import secrets
 from datetime import date
+
+import functions
 from Commandes.Commandes import Commande
 from Stations.Stations import StationClass
 from functions import clearConsole, retryFunc, GAZOLINE_CHOICE, DIESEL_CHOICE, BOTH_GAZ_CHOICE, findCommandeById, \
@@ -70,10 +72,6 @@ def addCommande():
                 print("Veuillez choisir une valeur entre 1 et 3")
         else:
             print("Entrer une valeur correcte, entre 1 et 3")
-
-    valueReturn = retryFunc()
-    if valueReturn == 0:
-        return
 
 
 def saveCommande(v_qte_gallon_gazoline=0.0, v_qte_gallon_diesel=0.0):
