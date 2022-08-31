@@ -54,6 +54,19 @@ all_ventes = list()
 # attributes
 PRICE_GAZOLINE = 250
 PRICE_DIESEL = 353
+AMOUNT_IS_UNDER_MISC = -99
+ERROR_MISC = -1
+
+VENTE_ID = "id"
+VENTE_STATION = "nom_station"
+VENTE_QTE_GAL_GAZOLINE = "qte_gal_gazoline"
+VENTE_QTE_GAL_DIESEL = "qte_gal_diesel"
+VENTE_DATE = "date"
+VENTE_MONTANT_GAZOLINE = "montant_gazoline"
+VENTE_MONTANT_DIESEL = "montant_diesel"
+VENTE_MONTANT_TOTAL = "montant_total"
+VENTE_VERSEMENT_CLIENT = "versement"
+VENTE_REMISE = "remise"
 
 
 def findIfStationExist(name: str):
@@ -104,7 +117,6 @@ def generer_date():
     today = date.today()
     # Month abbreviation, day and year
     date_sys = today.strftime("%b-%d-%Y")
-    print("Date sys =", date_sys)
     return date_sys
 
 
@@ -123,7 +135,8 @@ def confirm_identity() -> bool:
     usertype = ""
     is_confirm = False
     print("\n\t\t ========== PRIVILEGE ADMINISTRATEUR ==============")
-    print("\nPour continuer, vous devez etre un admin (ou contacter votre supperieur)\nVoulez-vous continuer ?\n1- Oui\n0- Non\n")
+    print(
+        "\nPour continuer, vous devez etre un admin (ou contacter votre supperieur)\nVoulez-vous continuer ?\n1- Oui\n0- Non\n")
     while True:
         usertype = input("R- ")
         if usertype.isdigit():

@@ -32,11 +32,9 @@ class Commande:
         # generate 1 secure random numbers between 10 and 500
         for x in range(0, 1):
             secret_id = (10 + secrets.randbelow(500)).__str__()
-
         # recursive function : get unique ID in all_commandes
         if functions.findCommandeById(secret_id):
             self.generer_id()
-
         return secret_id
 
     def enregistrer(self, qte_gallon_diesel: float, qte_gallon_gazoline: float):

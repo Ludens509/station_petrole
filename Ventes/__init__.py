@@ -28,7 +28,6 @@ def ventes_menu():
                 input("\nPress enter to continue\n")
             case 2:
                 show_all_ventes()
-                print("all ventes")
                 input("\nPress enter to continue\n")
             case 0:
                 input("\nRetour au menu Principal\nPress enter to continue\n")

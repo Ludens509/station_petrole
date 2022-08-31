@@ -3,7 +3,7 @@ from functions import GAZOLINE_CONST, DIESEL_CONST, CAPACITE_GAZOLINE, CAPACITE_
     PERCENT_GAL_GAZOLINE, PERCENT_GAL_DIESEL, QTE_GAL_GAZOLINE_MANQUEE, QTE_GAL_DIESEL_MANQUEE, \
     TOTAL_GAL_DIESEL_MANQUEE, TOTAL_GAL_GAZOLINE_MANQUEE
 
-import functions
+import functions as fct
 
 
 class StationClass:
@@ -31,10 +31,10 @@ class StationClass:
         self.changePourcentageGazoline(nom=nom)
         self.changePourcentageDiesel(nom=nom)
 
-        if self.nom == functions.LALUE_CONST or self.nom == functions.TABARRE_CONST \
-                or self.nom == functions.CLERCINE_CONST \
-                or self.nom == functions.PETION_VILLE_CONST:
-            functions.all_stations.update({
+        if self.nom == fct.LALUE_CONST or self.nom == fct.TABARRE_CONST \
+                or self.nom == fct.CLERCINE_CONST \
+                or self.nom == fct.PETION_VILLE_CONST:
+            fct.all_stations.update({
                 self.nom: {
                     CAPACITE_GAZOLINE: self.capacite_gazoline,
                     CAPACITE_DIESEL: self.capacite_diesel,
@@ -52,68 +52,71 @@ class StationClass:
     def getNom(self):
         return self.nom
 
-    def getCapaciteGazoline(self,nom :str ):
-        self.capacite_diesel = functions.all_stations[nom][CAPACITE_GAZOLINE]
+    def getCapaciteGazoline(self, nom: str):
+        self.capacite_diesel = fct.all_stations[nom][CAPACITE_GAZOLINE]
         return self.capacite_gazoline
 
     def setCapaciteGazoline(self, nom: str, newCapacite_gazoline: float):
         self.capacite_gazoline = newCapacite_gazoline
-        functions.all_stations[nom][CAPACITE_GAZOLINE] = newCapacite_gazoline
+        fct.all_stations[nom][CAPACITE_GAZOLINE] = newCapacite_gazoline
         # change qte dispo
         self.qte_gallon_gazoline_dispo = newCapacite_gazoline
-        functions.all_stations[nom][QTE_GAL_GAZOLINE_DISPO] = self.qte_gallon_gazoline_dispo
+        fct.all_stations[nom][QTE_GAL_GAZOLINE_DISPO] = self.qte_gallon_gazoline_dispo
         # functions to change percent
         self.changePourcentageGazoline(nom=nom)
 
-    def getCapaciteDiesel(self,nom: str):
-        self.capacite_diesel = functions.all_stations[nom][CAPACITE_DIESEL]
+    def getCapaciteDiesel(self, nom: str):
+        self.capacite_diesel = fct.all_stations[nom][CAPACITE_DIESEL]
         return self.capacite_diesel
 
     def setCapaciteDiesel(self, nom: str, newCapacite_diesel: float):
         self.capacite_diesel = newCapacite_diesel
-        functions.all_stations[nom][CAPACITE_DIESEL] = newCapacite_diesel
+        fct.all_stations[nom][CAPACITE_DIESEL] = newCapacite_diesel
 
         # change qte dispo
         self.qte_gallon_diesel_dispo = newCapacite_diesel
-        functions.all_stations[nom][QTE_GAL_DIESEL_DISPO] = self.qte_gallon_diesel_dispo
+        fct.all_stations[nom][QTE_GAL_DIESEL_DISPO] = self.qte_gallon_diesel_dispo
 
         # functions to change percent
         self.changePourcentageDiesel(nom=nom)
 
-    def getQte_diesel(self,nom: str):
-        self.qte_gallon_diesel_dispo = functions.all_stations[nom][QTE_GAL_DIESEL_DISPO]
+    def getQte_diesel(self, nom: str):
+        self.qte_gallon_diesel_dispo = fct.all_stations[nom][QTE_GAL_DIESEL_DISPO]
         return self.qte_gallon_diesel_dispo
 
     def setQte_diesel(self, nom: str, newQte_diesel: float):
         self.qte_gallon_diesel_dispo_diesel = newQte_diesel
-        functions.all_stations[nom][QTE_GAL_DIESEL_DISPO] = newQte_diesel
+        fct.all_stations[nom][QTE_GAL_DIESEL_DISPO] = newQte_diesel
 
-    def getQte_gazoline(self,nom:str):
-        self.qte_gallon_gazoline_dispo_dispo = functions.all_stations[nom][QTE_GAL_GAZOLINE_DISPO]
+    def getQte_gazoline(self, nom: str):
+        self.qte_gallon_gazoline_dispo_dispo = fct.all_stations[nom][QTE_GAL_GAZOLINE_DISPO]
         return self.qte_gallon_gazoline_dispo_dispo
 
     def setQte_gazoline(self, nom: str, newQte_gazoline: float):
         self.qte_gallon_gazoline_dispo = newQte_gazoline
-        functions.all_stations[nom][QTE_GAL_GAZOLINE_DISPO] = newQte_gazoline
+        fct.all_stations[nom][QTE_GAL_GAZOLINE_DISPO] = newQte_gazoline
 
     def getPourcentageGazoline(self, ) -> float:
         return self.pourcentage_gazoline
 
     def changePourcentageGazoline(self, nom: str):
         self.pourcentage_gazoline = self.qte_gallon_gazoline_dispo / self.capacite_gazoline * 100
-        if functions.findIfStationExist(nom):
-            functions.all_stations[nom][functions.PERCENT_GAL_GAZOLINE] = self.pourcentage_gazoline
+        if fct.findIfStationExist(nom):
+            fct.all_stations[nom][fct.PERCENT_GAL_GAZOLINE] = self.pourcentage_gazoline
 
     def getPourcentageDiesel(self, ):
         return self.pourcentage_diesel
 
     def changePourcentageDiesel(self, nom: str):
         self.pourcentage_diesel = self.qte_gallon_diesel_dispo / self.capacite_diesel * 100
-        if functions.findIfStationExist(nom):
-            functions.all_stations[nom][functions.PERCENT_GAL_DIESEL] = self.pourcentage_diesel
+        if fct.findIfStationExist(nom):
+            fct.all_stations[nom][fct.PERCENT_GAL_DIESEL] = self.pourcentage_diesel
 
     def afficher(self, ):
-        for k, val in functions.all_stations.items():
+        if len(fct.all_stations) == 0:
+            print("\nPas de station trouve")
+
+        for k, val in fct.all_stations.items():
             if val.items():
                 print(f"\n{k.upper()}\n")
                 for cle, value in val.items():
@@ -152,16 +155,16 @@ class StationClass:
         cap_gaz = float()
         cap_dies = float()
 
-        if nomstation in functions.all_stations:
-            cap_gaz = functions.all_stations[nomstation][CAPACITE_GAZOLINE]
-            qte_gaz_dispo = functions.all_stations[nomstation][QTE_GAL_GAZOLINE_DISPO]
-            qte_gaz_consomee = functions.all_stations[nomstation][CAPACITE_GAZOLINE] - \
-                               functions.all_stations[nomstation][QTE_GAL_GAZOLINE_DISPO]
+        if nomstation in fct.all_stations:
+            cap_gaz = fct.all_stations[nomstation][CAPACITE_GAZOLINE]
+            qte_gaz_dispo = fct.all_stations[nomstation][QTE_GAL_GAZOLINE_DISPO]
+            qte_gaz_consomee = fct.all_stations[nomstation][CAPACITE_GAZOLINE] - \
+                               fct.all_stations[nomstation][QTE_GAL_GAZOLINE_DISPO]
 
-            cap_dies = functions.all_stations[nomstation][CAPACITE_DIESEL]
-            qte_dies_dispo = functions.all_stations[nomstation][QTE_GAL_DIESEL_DISPO]
-            qte_dies_consommee = functions.all_stations[nomstation][QTE_GAL_DIESEL_DISPO] - \
-                                 functions.all_stations[nomstation][QTE_GAL_DIESEL_DISPO]
+            cap_dies = fct.all_stations[nomstation][CAPACITE_DIESEL]
+            qte_dies_dispo = fct.all_stations[nomstation][QTE_GAL_DIESEL_DISPO]
+            qte_dies_consommee = fct.all_stations[nomstation][QTE_GAL_DIESEL_DISPO] - \
+                                 fct.all_stations[nomstation][QTE_GAL_DIESEL_DISPO]
 
             data_essence.update({
                 CAPACITE_GAZOLINE: cap_gaz,
@@ -190,7 +193,7 @@ class StationClass:
         total_gaz_manquantes = 0.0
         total_dies_manquantes = 0.0
 
-        for key, val in functions.all_stations.items():
+        for key, val in fct.all_stations.items():
             statsessence = self.qteEssenceStats(nomstation=key)
 
             somme_cap_gaz = somme_cap_gaz + statsessence[CAPACITE_GAZOLINE]
@@ -220,7 +223,7 @@ class StationClass:
         }
 
     def afficherQuantiteGallon(self, ):
-        for k, val in functions.all_stations.items():
+        for k, val in fct.all_stations.items():
             if val.items():
                 print(f"\n STATION {k.upper()}: \n")
                 input("Press any key to continue")
@@ -235,9 +238,33 @@ class StationClass:
                 print(f"Qte diesel consommee -> {statsessence[QTE_GAL_DIESEL_CONSOMMEE]}")
 
         somme_quantites = self.sommeQtes()
-        if somme_quantites.__sizeof__() > 0:
+        if len(somme_quantites) > 0:
             print("\n\t\t=============== TOTAL DES STATION ===============\n")
             print(f"Qte gazoline manquee : {somme_quantites[TOTAL_GAL_GAZOLINE_MANQUEE]}")
             print(f"Qte diesel manquee : {somme_quantites[TOTAL_GAL_DIESEL_MANQUEE]}\n")
 
         input("Press any key to continue")
+
+    @staticmethod
+    def diminuerQteGazoline(station, qte) -> bool:
+        if fct.findIfStationExist(station):
+            qte_dispo_before = fct.all_stations[station][fct.QTE_GAL_GAZOLINE_DISPO]
+            if qte > qte_dispo_before:
+                fct.all_stations[station][fct.QTE_GAL_GAZOLINE_DISPO] = qte_dispo_before - qte
+            else:
+                print("La quantite saisie est supperieur a la quantite disponible")
+                return False
+        else:
+            return False
+
+    @staticmethod
+    def diminuerQteDiesel(station, qte) -> bool:
+        if fct.findIfStationExist(station):
+            qte_dispo_before = fct.all_stations[station][fct.QTE_GAL_DIESEL_DISPO]
+            if qte > qte_dispo_before:
+                fct.all_stations[station][fct.QTE_GAL_DIESEL_DISPO] = qte_dispo_before - qte
+            else:
+                print("La quantite saisie est supperieur a la quantite disponible")
+                return False
+        else:
+            return False
