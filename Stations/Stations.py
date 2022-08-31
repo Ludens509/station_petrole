@@ -24,8 +24,8 @@ class StationClass:
         self.capacite_gazoline = capacite_gazoline
         self.capacite_diesel = capacite_diesel
         # dispo
-        self.qte_gallon_gazoline_dispo = self.capacite_gazoline
-        self.qte_gallon_diesel_dispo = self.capacite_diesel
+        # self.qte_gallon_gazoline_dispo = self.capacite_gazoline
+        # self.qte_gallon_diesel_dispo = self.capacite_diesel
 
         # functions to change percent
         self.changePourcentageGazoline(nom=nom)
@@ -52,7 +52,8 @@ class StationClass:
     def getNom(self):
         return self.nom
 
-    def getCapaciteGazoline(self, ):
+    def getCapaciteGazoline(self,nom :str ):
+        self.capacite_diesel = functions.all_stations[nom][CAPACITE_GAZOLINE]
         return self.capacite_gazoline
 
     def setCapaciteGazoline(self, nom: str, newCapacite_gazoline: float):
@@ -64,7 +65,8 @@ class StationClass:
         # functions to change percent
         self.changePourcentageGazoline(nom=nom)
 
-    def getCapaciteDisesel(self, ):
+    def getCapaciteDiesel(self,nom: str):
+        self.capacite_diesel = functions.all_stations[nom][CAPACITE_DIESEL]
         return self.capacite_diesel
 
     def setCapaciteDiesel(self, nom: str, newCapacite_diesel: float):
@@ -78,6 +80,21 @@ class StationClass:
         # functions to change percent
         self.changePourcentageDiesel(nom=nom)
 
+    def getQte_diesel(self,nom: str):
+        self.qte_gallon_diesel_dispo = functions.all_stations[nom][QTE_GAL_DIESEL_DISPO]
+        return self.qte_gallon_diesel_dispo
+
+    def setQte_diesel(self, nom: str, newQte_diesel: float):
+        self.qte_gallon_diesel_dispo_diesel = newQte_diesel
+        functions.all_stations[nom][QTE_GAL_DIESEL_DISPO] = newQte_diesel
+
+    def getQte_gazoline(self,nom:str):
+        self.qte_gallon_gazoline_dispo_dispo = functions.all_stations[nom][QTE_GAL_GAZOLINE_DISPO]
+        return self.qte_gallon_gazoline_dispo_dispo
+
+    def setQte_gazoline(self, nom: str, newQte_gazoline: float):
+        self.qte_gallon_gazoline_dispo = newQte_gazoline
+        functions.all_stations[nom][QTE_GAL_GAZOLINE_DISPO] = newQte_gazoline
 
     def getPourcentageGazoline(self, ) -> float:
         return self.pourcentage_gazoline

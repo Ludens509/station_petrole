@@ -1,7 +1,7 @@
 import secrets
 
 import functions
-from functions import all_stations, LALUE_CONST, TABARRE_CONST, CLERCINE_CONST, PETION_VILLE_CONST, \
+from functions import COMMAND_QTE_GAZOLINE, all_stations, LALUE_CONST, TABARRE_CONST, CLERCINE_CONST, PETION_VILLE_CONST, \
     QTE_GAL_DIESEL_DISPO, QTE_GAL_GAZOLINE_DISPO, all_commandes, CAPACITE_GAZOLINE, CAPACITE_DIESEL, generer_date, \
     generer_etat
 
@@ -14,6 +14,19 @@ class Commande:
         self.date_commande = str()
         self.qte_gallon_gazoline = float()
         self.qte_gallon_diesel = float()
+
+    def getEtat(self):
+        return self.etat
+
+    def setEtat(self, etat):
+        self.etat = etat
+
+    def getQte_gazoline_commander(self):
+        self.qte_gallon_gazoline = functions.all_commandes[COMMAND_QTE_GAZOLINE][self.qte_gallon_gazoline]
+        return self.qte_gallon_gazoline
+
+    def getQte_diesel_commander(self):
+        return self.qte_gallon_diesel    
 
     def generer_id(self, ) -> int:
         # generate 1 secure random numbers between 10 and 500
@@ -62,10 +75,13 @@ class Commande:
         # end if
 
     def changeStateAllCommands(self,):
-        for i in functions.all_commandes:
+        for i in enumerate(functions.all_commandes):
             for key, values in i.items():
                 if key == functions.COMMAND_STATE:
-                    # functions.all_commandes[i][key] = functions.P_STATE_COMMAND
-                    pass
+                    print(f"In verification: {functions.all_commandes}\n I={i}\n Val:{values}")
+                    # i[functions.COMMAND_STATE] = functions.P_STATE_COMMAND
+                    # remove last
+                    # functions.all_commandes.pop()
+                    # add in a list
+                    # functions.all_commandes.append(i)
 
-        print("NEED ATENTIONChanger etat")
