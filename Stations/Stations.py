@@ -24,8 +24,8 @@ class StationClass:
         self.capacite_gazoline = capacite_gazoline
         self.capacite_diesel = capacite_diesel
         # dispo
-        # self.qte_gallon_gazoline_dispo = self.capacite_gazoline
-        # self.qte_gallon_diesel_dispo = self.capacite_diesel
+        self.qte_gallon_gazoline_dispo = self.capacite_gazoline
+        self.qte_gallon_diesel_dispo = self.capacite_diesel
 
         # functions to change percent
         self.changePourcentageGazoline(nom=nom)
@@ -100,6 +100,7 @@ class StationClass:
         return self.pourcentage_gazoline
 
     def changePourcentageGazoline(self, nom: str):
+
         self.pourcentage_gazoline = self.qte_gallon_gazoline_dispo / self.capacite_gazoline * 100
         if fct.findIfStationExist(nom):
             fct.all_stations[nom][fct.PERCENT_GAL_GAZOLINE] = self.pourcentage_gazoline
@@ -131,7 +132,7 @@ class StationClass:
         :type typeCapacite: str
         :type nouvellevaleur : float
         """
-        print(f"LOG: Modifier capacite{typeCapacite}: {nouvellevaleur}")
+
         if typeCapacite == GAZOLINE_CONST:
             self.setCapaciteGazoline(nom, nouvellevaleur)
             self.changePourcentageGazoline(nom=nom)
@@ -176,7 +177,6 @@ class StationClass:
                 QTE_GAL_DIESEL_CONSOMMEE: qte_dies_consommee
             })
         # end if
-
         return data_essence
 
     def sommeQtes(self, ) -> dict[float]:
@@ -229,42 +229,56 @@ class StationClass:
                 input("Press any key to continue")
                 statsessence = self.qteEssenceStats(nomstation=k)
 
-                print("==========  GAZOLINE ===============")
+                print("\n---------  GAZOLINE ---------")
                 print(f"qte gazoline disponible -> {statsessence[QTE_GAL_GAZOLINE_DISPO]}")
                 print(
                     f"Qte gazoline consommee -> {statsessence[QTE_GAL_GAZOLINE_CONSOMMEE]}")
-                print("==========  DIESEL ===============")
+                print("---------  DIESEL ---------")
                 print(f"qte diesel disponible -> {val[QTE_GAL_DIESEL_DISPO]}")
                 print(f"Qte diesel consommee -> {statsessence[QTE_GAL_DIESEL_CONSOMMEE]}")
 
         somme_quantites = self.sommeQtes()
         if len(somme_quantites) > 0:
-            print("\n\t\t=============== TOTAL DES STATION ===============\n")
+            print("\n\t\t=============== TOTAL DES STATIONS ===============\n")
             print(f"Qte gazoline manquee : {somme_quantites[TOTAL_GAL_GAZOLINE_MANQUEE]}")
             print(f"Qte diesel manquee : {somme_quantites[TOTAL_GAL_DIESEL_MANQUEE]}\n")
 
         input("Press any key to continue")
 
     @staticmethod
-    def diminuerQteGazoline(station, qte) -> bool:
+    def diminuerQteGazoline(station: str, qte: float) -> bool:
         if fct.findIfStationExist(station):
-            qte_dispo_before = fct.all_stations[station][fct.QTE_GAL_GAZOLINE_DISPO]
-            if qte > qte_dispo_before:
-                fct.all_stations[station][fct.QTE_GAL_GAZOLINE_DISPO] = qte_dispo_before - qte
+            qte_dispo_in_dict = fct.all_stations[station][fct.QTE_GAL_GAZOLINE_DISPO]
+            cap_gaz = fct.all_stations[station][fct.CAPACITE_GAZOLINE]
+
+            if qte_dispo_in_dict >= qte:
+                fct.all_stations[station][fct.QTE_GAL_GAZOLINE_DISPO] = qte_dispo_in_dict - qte
+                # recuperer la nouvelle valeur
+                qte_dispo_in_dict = fct.all_stations[station][fct.QTE_GAL_GAZOLINE_DISPO]
+                fct.all_stations[station][fct.PERCENT_GAL_GAZOLINE] = qte_dispo_in_dict / cap_gaz * 100
+                return True
             else:
                 print("La quantite saisie est supperieur a la quantite disponible")
                 return False
         else:
+            print("Il n'y a pas de station portant ce nom")
             return False
 
     @staticmethod
-    def diminuerQteDiesel(station, qte) -> bool:
+    def diminuerQteDiesel(station: str, qte: float) -> bool:
         if fct.findIfStationExist(station):
-            qte_dispo_before = fct.all_stations[station][fct.QTE_GAL_DIESEL_DISPO]
-            if qte > qte_dispo_before:
-                fct.all_stations[station][fct.QTE_GAL_DIESEL_DISPO] = qte_dispo_before - qte
+            qte_dispo_in_dict = fct.all_stations[station][fct.QTE_GAL_DIESEL_DISPO]
+            cap_dies = fct.all_stations[station][fct.CAPACITE_DIESEL]
+
+            if qte_dispo_in_dict >= qte:
+                fct.all_stations[station][fct.QTE_GAL_DIESEL_DISPO] = qte_dispo_in_dict - qte
+                # recuperer la nouvelle valeur
+                qte_dispo_in_dict = fct.all_stations[station][fct.QTE_GAL_DIESEL_DISPO]
+                fct.all_stations[station][fct.PERCENT_GAL_DIESEL] = qte_dispo_in_dict / cap_dies * 100
+                return True
             else:
                 print("La quantite saisie est supperieur a la quantite disponible")
                 return False
         else:
+            print("Il n'y a pas de station portant ce nom")
             return False

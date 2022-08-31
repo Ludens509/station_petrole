@@ -47,7 +47,9 @@ class VentesClass:
 
         self.montant_versement_client = versement_client
 
-        if self.montant_total < self.montant_versement_client:
+        # montant a payer est supperieur au montant verser par le client
+        if self.montant_total > self.montant_versement_client:
+            print("Le montant donne ne doit pas etre inferieur au montant a payer")
             return fct.AMOUNT_IS_UNDER_MISC
 
         self.montant_remise = self.montant_versement_client - self.montant_total
@@ -60,7 +62,8 @@ class VentesClass:
 
             diminution_qte = self.v_station.diminuerQteDiesel(self.station_name, self.qte_diesel)
             if not diminution_qte:
-                return
+                print("Impossible de diminuer la quantite de diesel")
+                return fct.ERROR_MISC
 
             fct.all_ventes.append({
                 fct.VENTE_ID: self.id,
@@ -78,7 +81,8 @@ class VentesClass:
 
             diminution_qte = self.v_station.diminuerQteGazoline(self.station_name, self.qte_gazoline)
             if not diminution_qte:
-                return
+                print("Impossible de diminuer la quantite de gazoline")
+                return fct.ERROR_MISC
 
             fct.all_ventes.append({
                 fct.VENTE_ID: self.id,
@@ -96,10 +100,13 @@ class VentesClass:
 
             diminution_qte = self.v_station.diminuerQteGazoline(self.station_name, self.qte_gazoline)
             if not diminution_qte:
-                return
+                print("Impossible de diminuer la quantite de gazoline")
+                return fct.ERROR_MISC
             diminution_qte = self.v_station.diminuerQteDiesel(self.station_name, self.qte_diesel)
+
             if not diminution_qte:
-                return
+                print("Impossible de diminuer la quantite de diesel")
+                return fct.ERROR_MISC
 
             fct.all_ventes.append({
                 fct.VENTE_ID: self.id,
@@ -120,7 +127,6 @@ class VentesClass:
             print("Montant remise is negative")
             return fct.ERROR_MISC
         else:
-            print(f"Mt remise {self.montant_remise}")
             return self.montant_remise
 
     def afficherVentes(self):

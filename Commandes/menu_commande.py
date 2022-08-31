@@ -47,7 +47,7 @@ def addCommande():
 
             # stop if user not confirm the command
             if not confirm_id:
-                print("\nVous avez choisi de ne pas continuer\n")
+                print("\nVous n'avez pas rempli les conditions pour acceder a cette fonctionnalite\n")
                 return
 
             if usertype == GAZOLINE_CHOICE:

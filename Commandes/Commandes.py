@@ -1,7 +1,8 @@
 import secrets
 
 import functions
-from functions import COMMAND_QTE_GAZOLINE, all_stations, LALUE_CONST, TABARRE_CONST, CLERCINE_CONST, PETION_VILLE_CONST, \
+from functions import COMMAND_QTE_GAZOLINE, all_stations, LALUE_CONST, TABARRE_CONST, CLERCINE_CONST, \
+    PETION_VILLE_CONST, \
     QTE_GAL_DIESEL_DISPO, QTE_GAL_GAZOLINE_DISPO, all_commandes, CAPACITE_GAZOLINE, CAPACITE_DIESEL, generer_date, \
     generer_etat
 
@@ -10,7 +11,7 @@ class Commande:
 
     def __init__(self, ):
         self.etat = str()
-        self.id = int()
+        self.id = str()
         self.date_commande = str()
         self.qte_gallon_gazoline = float()
         self.qte_gallon_diesel = float()
@@ -26,9 +27,9 @@ class Commande:
         return self.qte_gallon_gazoline
 
     def getQte_diesel_commander(self):
-        return self.qte_gallon_diesel    
+        return self.qte_gallon_diesel
 
-    def generer_id(self, ) -> int:
+    def generer_id(self, ) -> str:
         # generate 1 secure random numbers between 10 and 500
         for x in range(0, 1):
             secret_id = (10 + secrets.randbelow(500)).__str__()
@@ -50,8 +51,8 @@ class Commande:
         # command_dict =
         functions.all_commandes.append({
             functions.COMMAND_ID: self.id,
-            functions.COMMAND_QTE_GAZOLINE: self.qte_gallon_diesel,
-            functions.COMMAND_QTE_DIESEL: self.qte_gallon_gazoline,
+            functions.COMMAND_QTE_GAZOLINE: self.qte_gallon_gazoline,
+            functions.COMMAND_QTE_DIESEL: self.qte_gallon_diesel,
             functions.COMMAND_DATE: self.date_commande,
             functions.COMMAND_STATE: self.etat
         })
@@ -72,14 +73,9 @@ class Commande:
 
         # end if
 
-    def changeStateAllCommands(self,):
-        for i in enumerate(functions.all_commandes):
-            for key, values in i.items():
-                if key == functions.COMMAND_STATE:
-                    print(f"In verification: {functions.all_commandes}\n I={i}\n Val:{values}")
-                    # i[functions.COMMAND_STATE] = functions.P_STATE_COMMAND
-                    # remove last
-                    # functions.all_commandes.pop()
-                    # add in a list
-                    # functions.all_commandes.append(i)
-
+    @staticmethod
+    def changeStateAllCommands():
+        for i, valeur in enumerate(functions.all_commandes):
+            for key, val in valeur.items():
+                if valeur[key] == functions.N_STATE_COMMAND:
+                    functions.all_commandes[i][key] = functions.P_STATE_COMMAND

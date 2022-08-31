@@ -178,3 +178,7 @@ def fileAccess(nom: str, pwd: str) -> bool:
         # end with
     finally:
         file.close()
+
+
+def myNumberformat(x):
+    return ('%.2f' % x).rstrip('0').rstrip('.')
