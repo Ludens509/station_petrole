@@ -27,13 +27,24 @@ class Approvisionnement:
         self.date_app = functions.generer_date()
 
         functions.all_approvisionnements.update(
-            [self.id, qte_gallon_diesel, qte_gallon_gazoline, self.date_app])
+            [self.id,self.station ,qte_gallon_diesel, qte_gallon_gazoline, self.date_app])
         print('\nSuccessfully saved!')
 
-    def afficher(self, ):
-        print("====LISTE DES APPROVISIONNEMENTS====")
-        for i in range(len(functions.all_approvisionnements)):
-            print(functions.all_approvisionnements[i], )
+    # def afficher(self, ):
+    #     list_app = list(functions.all_approvisionnements)
+    #     print("====LISTE DES APPROVISIONNEMENTS====")
+    #     for i in range(len(list_app)):
+    #         print(list_app[i], )
+
+    def afficher(self):
+        print('-------------->>> ', self.station, ' <<<-------------')
+        print('| ID ------------------------->>>', self.id)
+        print('| Quantite gallon diesel ----->>>', self.qte_gallon_diesel, 'gallon')
+        print('| Quantite gallon gazoline---->>>', self.qte_gallon_gazoline, 'gallon')
+        print('| Date approvisionnement ----->>>', self.date_app)
+        print('----------------------------------------------------')
+        input("Pressez pour continuer")
+
             # To verify if command exist
     def verify_command_exist(self):
         if functions.all_commandes == 0:
