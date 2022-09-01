@@ -1,24 +1,11 @@
-from distutils.cmd import Command
-import secrets
 from Approvisionnements.Approvisionnements import Approvisionnement
 from Commandes.Commandes import Commande
 from Stations.Stations import StationClass
-from functions import findCommandeById, confirm_identity
+from functions import confirm_identity
 import functions
 
 v_approvisionnement = Approvisionnement()
-
-
-def generer_id() -> int:
-    # generate 1 secure random numbers between 10 and 500
-    for x in range(0, 1):
-        secret_id = (10 + secrets.randbelow(500)).__str__()
-
-    # recursive function : get unique ID in all_commandes
-    if functions.findCommandeById(secret_id):
-        self.generer_id()
-
-    return secret_id
+v_commande = Commande()
 
 
 #     # Get the amount of gazoline and diesel odered
@@ -66,99 +53,113 @@ def addApprovisionnement():
                     return
 
                 # l'approvisionnement peut etre lancee
-                # for i in functions.all_commandes:
-                #     for key, val in i.items():
-                #         if key == functions.COMMAND_STATE and val == "N":
-                #             v_qte_diesel_command = Commande.getQte_diesel_commander
-                #             v_qte_gazoline_command = Commande.getQte_gazoline_commander
-                #             Commande.setEtat("P")
-                #         else:
-                #             print("Pas de nouvelle commande")
-                gallon_diesel_manquant = 0.0
-                gallon_gazoline_manquant = 0.0
+                if len(functions.all_commandes) > 0:
+                    for i in functions.all_commandes:
+                        for key, val in i.items():
+                            if key == functions.COMMAND_STATE and val == "N":
+                                qte_diesel_command = v_commande.getQte_diesel_commander()
+                                qte_gazoline_command = v_commande.getQte_gazoline_commander()
+                                Commande.changeStateAllCommands
+                else:
+                    print("\nNo command found\n")
+
+                qte_dies_manquante = 0.0
+                qte_gaz_manquante = 0.0
+                v_qte_diesel_command = qte_diesel_command
+                v_qte_gazoline_command = qte_gazoline_command
                 # LALUE
                 for cle, valeur in functions.all_stations.items():
                     if cle == functions.LALUE_CONST:
-                        id = generer_id()
+                        # id = generer_id()
                         station = functions.LALUE_CONST
                         date = functions.generer_date()
 
-                        gallon_diesel_manquant = StationClass.getCapaciteDiesel(station) - StationClass.getQte_diesel(station)
-                        gallon_gazoline_manquant = StationClass.getCapaciteGazoline(station) - StationClass.getQte_gazoline(station)
+                        qte_essence = StationClass.qteEssenceStats(station)
+                        if len(qte_essence) == 0:
+                            # vide
+                            return
+                        qte_gaz_manquante = qte_essence[functions.QTE_GAL_GAZOLINE_CONSOMMEE]
+                        qte_dies_manquante = qte_essence[functions.QTE_GAL_DIESEL_CONSOMMEE]
 
                         if v_qte_diesel_command > 0 and v_qte_gazoline_command == 0:
-                            StationClass.setQte_diesel(station,gallon_diesel_manquant)
-                            v_approvisionnement.enregistrer(id=id,station=station,qte_gallon_diesel=gallon_diesel_manquant,qte_gallon_gazoline=0,date_app=date)
+                            StationClass().setQte_diesel(station,qte_dies_manquante)
+                            v_approvisionnement.enregistrer(station=station,qte_gallon_diesel=qte_dies_manquante,qte_gallon_gazoline=0)
                         elif v_qte_diesel_command == 0 and v_qte_gazoline_command > 0:
-                            StationClass.setQte_gazoline(station, gallon_gazoline_manquant)
-                            v_approvisionnement.enregistrer(id=id, station=station, qte_gallon_diesel= 0,qte_gallon_gazoline=gallon_gazoline_manquant, date_app=date)
+                            StationClass().setQte_gazoline(station, qte_gaz_manquante)
+                            v_approvisionnement.enregistrer( station=station, qte_gallon_diesel= 0,qte_gallon_gazoline=qte_gaz_manquante)
                         else:
-                            StationClass.setQte_diesel(station, gallon_diesel_manquant)
-                            StationClass.setQte_gazoline(station, gallon_gazoline_manquant)
-                            v_approvisionnement.enregistrer(id=id, station=station, qte_gallon_diesel= gallon_diesel_manquant,qte_gallon_gazoline=gallon_gazoline_manquant, date_app=date)
-
+                            StationClass().setQte_gazoline(station, qte_gaz_manquante)
+                            StationClass().setQte_diesel(station, qte_dies_manquante)
+                            v_approvisionnement.enregistrer( station=station, qte_gallon_diesel= qte_dies_manquante,qte_gallon_gazoline=qte_gaz_manquante)
                 # TABARRE
-                for cle, valeur in functions.all_stations.items():
-                    if cle == functions.TABARRE_CONST:
-                        id = generer_id()
+                    elif cle == functions.TABARRE_CONST:
+                        # id = generer_id()
                         station = functions.TABARRE_CONST
                         date = functions.generer_date()
 
-                        gallon_diesel_manquant = StationClass.getCapaciteDiesel(station) - StationClass.getQte_diesel(station)
-                        gallon_gazoline_manquant = StationClass.getCapaciteGazoline(station) - StationClass.getQte_gazoline(station)
+                        qte_essence = StationClass.qteEssenceStats(station)
+                        if len(qte_essence) == 0:
+                            # vide
+                            return
+                        qte_gaz_manquante = qte_essence[functions.QTE_GAL_GAZOLINE_CONSOMMEE]
+                        qte_dies_manquante = qte_essence[functions.QTE_GAL_DIESEL_CONSOMMEE]
 
                         if v_qte_diesel_command > 0 and v_qte_gazoline_command == 0:
-                            StationClass.setQte_diesel(station,gallon_diesel_manquant)
-                            v_approvisionnement.enregistrer(id=id,station=station,qte_gallon_diesel=gallon_diesel_manquant,qte_gallon_gazoline=0,date_app=date)
+                            StationClass().setQte_diesel(station,qte_dies_manquante)
+                            v_approvisionnement.enregistrer(station=station,qte_gallon_diesel=qte_dies_manquante,qte_gallon_gazoline=0)
                         elif v_qte_diesel_command == 0 and v_qte_gazoline_command > 0:
-                            StationClass.setQte_gazoline(station, gallon_gazoline_manquant)
-                            v_approvisionnement.enregistrer(id=id, station=station, qte_gallon_diesel= 0,qte_gallon_gazoline=gallon_gazoline_manquant, date_app=date)
+                            StationClass().setQte_gazoline(station, qte_gaz_manquante)
+                            v_approvisionnement.enregistrer(station=station, qte_gallon_diesel= 0,qte_gallon_gazoline=qte_gaz_manquante)
                         else:
-                            StationClass.setQte_diesel(station, gallon_diesel_manquant)
-                            StationClass.setQte_gazoline(station, gallon_gazoline_manquant)
-                            v_approvisionnement.enregistrer(id=id, station=station, qte_gallon_diesel= gallon_diesel_manquant,qte_gallon_gazoline=gallon_gazoline_manquant, date_app=date)
+                            StationClass().setQte_diesel(station, qte_dies_manquante)
+                            StationClass().setQte_gazoline(station, qte_gaz_manquante)
+                            v_approvisionnement.enregistrer(station=station, qte_gallon_diesel= qte_dies_manquante,qte_gallon_gazoline=qte_gaz_manquante)
+                # CLERCINE
+                    elif cle == functions.CLERCINE_CONST:
+                        # id = generer_id()
+                        station = functions.CLERCINE_CONST
+                        date = functions.generer_date
 
-                            # CLERCINE
-                            for cle, valeur in functions.all_stations.items():
-                                if cle == functions.CLERCINE_CONSTT:
-                                    id = generer_id()
-                                    station = functions.CLERCINE_CONST
-                                    date = functions.generer_date()
+                        qte_essence = StationClass.qteEssenceStats(station)
+                        if len(qte_essence) == 0:
+                            # vide
+                            return
+                        qte_gaz_manquante = qte_essence[functions.QTE_GAL_GAZOLINE_CONSOMMEE]
+                        qte_dies_manquante = qte_essence[functions.QTE_GAL_DIESEL_CONSOMMEE]
 
-                                    gallon_diesel_manquant = StationClass.getCapaciteDiesel(station) - StationClass.getQte_diesel(station)
-                                    gallon_gazoline_manquant = StationClass.getCapaciteGazoline(station) - StationClass.getQte_gazoline(station)
+                        if v_qte_diesel_command > 0 and v_qte_gazoline_command == 0:
+                            StationClass().setQte_diesel(station,qte_dies_manquante)
+                            v_approvisionnement.enregistrer(station=station,qte_gallon_diesel=qte_dies_manquante,qte_gallon_gazoline=0)
+                        elif v_qte_diesel_command == 0 and v_qte_gazoline_command > 0:
+                            StationClass().setQte_gazoline(station, qte_gaz_manquante)
+                            v_approvisionnement.enregistrer( station=station, qte_gallon_diesel= 0,qte_gallon_gazoline=qte_gaz_manquante)
+                        else:
+                            StationClass().setQte_diesel(station, qte_dies_manquante)
+                            StationClass().setQte_gazoline(station, qte_gaz_manquante)
+                            v_approvisionnement.enregistrer(station=station, qte_gallon_diesel= qte_dies_manquante,qte_gallon_gazoline=qte_gaz_manquante)
+                # PETION-VILLE       
+                    else :
+                        # id = generer_id()
+                        station = functions.PETION_VILLE_CONST
+                        date = functions.generer_date
 
-                                    if v_qte_diesel_command > 0 and v_qte_gazoline_command == 0:
-                                        StationClass.setQte_diesel(station, gallon_diesel_manquant)
-                                        v_approvisionnement.enregistrer(id=id, station=station, qte_gallon_diesel=gallon_diesel_manquant,qte_gallon_gazoline=0, date_app=date)
-                                    elif v_qte_diesel_command == 0 and v_qte_gazoline_command > 0:
-                                        StationClass.setQte_gazoline(station, gallon_gazoline_manquant)
-                                        v_approvisionnement.enregistrer(id=id, station=station, qte_gallon_diesel=0,qte_gallon_gazoline=gallon_gazoline_manquant,date_app=date)
-                                    else:
-                                        StationClass.setQte_diesel(station, gallon_diesel_manquant)
-                                        StationClass.setQte_gazoline(station, gallon_gazoline_manquant)
-                                        v_approvisionnement.enregistrer(id=id, station=station,qte_gallon_diesel=gallon_diesel_manquant,qte_gallon_gazoline=gallon_gazoline_manquant, date_app=date)
+                        qte_essence = StationClass.qteEssenceStats(station)
+                        if len(qte_essence) == 0:
+                            # vide
+                            return
+                        qte_gaz_manquante = qte_essence[functions.QTE_GAL_GAZOLINE_CONSOMMEE]
+                        qte_dies_manquante = qte_essence[functions.QTE_GAL_DIESEL_CONSOMMEE]
 
-                                        # PETION-VILLE
-                                        for cle, valeur in functions.all_stations.items():
-                                            if cle == functions.PETION_VILLE_CONST:
-                                                id = generer_id()
-                                                station = functions.PETION_VILLE_CONST
-                                                date = functions.generer_date()
-
-                                                gallon_diesel_manquant = StationClass.getCapaciteDiesel(station) - StationClass.getQte_diesel(station)
-                                                gallon_gazoline_manquant = StationClass.getCapaciteGazoline(station) - StationClass.getQte_gazoline(station)
-
-                                                if v_qte_diesel_command > 0 and v_qte_gazoline_command == 0:
-                                                    StationClass.setQte_diesel(station, gallon_diesel_manquant)
-                                                    v_approvisionnement.enregistrer(id=id, station=station, qte_gallon_diesel=gallon_diesel_manquant,qte_gallon_gazoline=0,date_app=date)
-                                                elif v_qte_diesel_command == 0 and v_qte_gazoline_command > 0:
-                                                    StationClass.setQte_gazoline(station, gallon_gazoline_manquant)
-                                                    v_approvisionnement.enregistrer(id=id, station=station,qte_gallon_diesel=0,qte_gallon_gazoline=gallon_gazoline_manquant, date_app=date)
-                                                else:
-                                                    StationClass.setQte_diesel(station, gallon_diesel_manquant)
-                                                    StationClass.setQte_gazoline(station, gallon_gazoline_manquant)
-                                                    v_approvisionnement.enregistrer(id=id, station=station,qte_gallon_diesel=gallon_diesel_manquant,qte_gallon_gazoline=gallon_gazoline_manquant,date_app=date)
+                        if v_qte_diesel_command > 0 and v_qte_gazoline_command == 0:
+                            StationClass().setQte_diesel(station,qte_dies_manquante)
+                            v_approvisionnement.enregistrer(station=station,qte_gallon_diesel=qte_dies_manquante,qte_gallon_gazoline=0)
+                        elif v_qte_diesel_command == 0 and v_qte_gazoline_command > 0:
+                            StationClass().setQte_gazoline(station, qte_gaz_manquante)
+                            v_approvisionnement.enregistrer(station=station, qte_gallon_diesel= 0,qte_gallon_gazoline=qte_gaz_manquante)
+                        else:
+                            StationClass().setQte_diesel(station, qte_dies_manquante)
+                            StationClass().setQte_gazoline(station, qte_gaz_manquante)
+                            v_approvisionnement.enregistrer(station=station, qte_gallon_diesel= qte_dies_manquante,qte_gallon_gazoline=qte_gaz_manquante)
 
                 # important to close the function
                 return
@@ -168,11 +169,8 @@ def addApprovisionnement():
         else:
             print("Entrer une valeur correcte, entre 0 et 1")
 
-
 # ================================== AFFICHER APPROVISIONNEMENT ===============================
 
 def show_all_approvisionnement():
     print("\n\n============| AFFICHER TOUTES LES APPROVISIONNEMENTS |============")
     v_approvisionnement.afficher()
-
-

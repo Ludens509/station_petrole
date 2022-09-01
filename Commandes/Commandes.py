@@ -22,11 +22,11 @@ class Commande:
     def setEtat(self, etat):
         self.etat = etat
 
-    def getQte_gazoline_commander(self):
-        self.qte_gallon_gazoline = functions.all_commandes[COMMAND_QTE_GAZOLINE][self.qte_gallon_gazoline]
+    def getQte_gazoline_commander(self,):
+        # self.qte_gallon_gazoline = functions.all_commandes[COMMAND_QTE_GAZOLINE][self.qte_gallon_gazoline]
         return self.qte_gallon_gazoline
 
-    def getQte_diesel_commander(self):
+    def getQte_diesel_commander(self,):
         return self.qte_gallon_diesel
 
     def generer_id(self, ) -> str:

@@ -10,17 +10,24 @@ class Approvisionnement:
         self.qte_gallon_gazoline = float()
         self.qte_gallon_diesel = float()
 
-    
+    def generer_id(self, ) -> str:
+        # generate 1 secure random numbers between 10 and 500
+        for x in range(0, 1):
+            secret_id = (10 + secrets.randbelow(500)).__str__()
+        # recursive function : get unique ID in all_commandes
+        if functions.findCommandeById(secret_id):
+            self.generer_id()
+        return secret_id
 
-    def enregistrer(self, id, station, qte_gallon_diesel, qte_gallon_gazoline, date_app):
-        self.id = id
+    def enregistrer(self, station, qte_gallon_diesel, qte_gallon_gazoline):
+        self.id = self.generer_id()
         self.station = station
         self.qte_gallon_diesel = qte_gallon_diesel
         self.qte_gallon_gazoline = qte_gallon_gazoline
-        self.date_app = date_app
+        self.date_app = functions.generer_date()
 
         functions.all_approvisionnements.update(
-            [id, qte_gallon_diesel, qte_gallon_gazoline, date_app])
+            [self.id, qte_gallon_diesel, qte_gallon_gazoline, self.date_app])
         print('\nSuccessfully saved!')
 
     def afficher(self, ):
