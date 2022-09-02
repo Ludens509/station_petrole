@@ -1,5 +1,5 @@
 import os
-# import pyautogui
+import secrets
 from datetime import date
 
 LALUE_CONST = "lalue"
@@ -118,7 +118,16 @@ def generer_date():
     # Month abbreviation, day and year
     date_sys = today.strftime("%b-%d-%Y")
     return date_sys
-
+#==================================
+#generate id
+def generer_id() -> str:
+    # generate 1 secure random numbers between 10 and 500
+    for x in range(0, 1):
+        secret_id = (10 + secrets.randbelow(500)).__str__()
+    # recursive function : get unique ID in all_commandes
+    if findCommandeById(secret_id):
+        self.generer_id()
+    return secret_id
 
 # generate etat
 def generer_etat(state):
