@@ -165,6 +165,7 @@ def addApprovisionnement():
                             app = Approvisionnement(id = id,station=station, qte_gallon_diesel= qte_dies_manquante,qte_gallon_gazoline=qte_gaz_manquante,date_app =date)
 
                         functions.all_approvisionnements.add(app)
+                print('\nSuccessfully saved!')
                 # important to close the function
                 return
 
