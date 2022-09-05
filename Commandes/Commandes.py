@@ -22,6 +22,7 @@ class Commande:
     def setEtat(self, etat):
         self.etat = etat
 
+
     def getQte_gazoline_commander(self,):
         # self.qte_gallon_gazoline = functions.all_commandes[COMMAND_QTE_GAZOLINE][self.qte_gallon_gazoline]
         return self.qte_gallon_gazoline
@@ -79,3 +80,12 @@ class Commande:
             for key, val in valeur.items():
                 if valeur[key] == functions.N_STATE_COMMAND:
                     functions.all_commandes[i][key] = functions.P_STATE_COMMAND
+
+    @staticmethod
+    def findNewCommand() -> bool:
+        for i, valeur in enumerate(functions.all_commandes):
+            for key, val in valeur.items():
+                if valeur[key] == functions.N_STATE_COMMAND:
+                    return True
+        
+        return False

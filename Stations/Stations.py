@@ -1,4 +1,6 @@
 from lib2to3.pgen2.token import PERCENT
+
+import functions
 from functions import GAZOLINE_CONST, DIESEL_CONST, CAPACITE_GAZOLINE, CAPACITE_DIESEL, QTE_GAL_GAZOLINE_DISPO, \
     QTE_GAL_DIESEL_DISPO, QTE_GAL_GAZOLINE_CONSOMMEE, QTE_GAL_DIESEL_CONSOMMEE, \
     PERCENT_GAL_GAZOLINE, PERCENT_GAL_DIESEL, QTE_GAL_GAZOLINE_MANQUEE, QTE_GAL_DIESEL_MANQUEE, \
@@ -54,8 +56,10 @@ class StationClass:
         return self.nom
 
     def getCapaciteGazoline(self, nom: str):
-        self.capacite_diesel = fct.all_stations[nom][CAPACITE_GAZOLINE]
-        return self.capacite_gazoline
+        if functions.findIfStationExist(name=nom):
+            self.capacite_gazoline = fct.all_stations[nom][CAPACITE_GAZOLINE]
+            return self.capacite_gazoline
+        return 0
 
     def setCapaciteGazoline(self, nom: str, newCapacite_gazoline: float):
         self.capacite_gazoline = newCapacite_gazoline
@@ -73,11 +77,9 @@ class StationClass:
     def setCapaciteDiesel(self, nom: str, newCapacite_diesel: float):
         self.capacite_diesel = newCapacite_diesel
         fct.all_stations[nom][CAPACITE_DIESEL] = newCapacite_diesel
-
         # change qte dispo
         self.qte_gallon_diesel_dispo = newCapacite_diesel
         fct.all_stations[nom][QTE_GAL_DIESEL_DISPO] = self.qte_gallon_diesel_dispo
-
         # functions to change percent
         self.changePourcentageDiesel(nom=nom)
 
@@ -88,6 +90,8 @@ class StationClass:
     def setQte_diesel(self, nom: str, newQte_diesel: float):
         self.qte_gallon_diesel_dispo = newQte_diesel + self.qte_gallon_diesel_dispo
         fct.all_stations[nom][QTE_GAL_DIESEL_DISPO] = self.qte_gallon_diesel_dispo
+        if functions.findIfStationExist(nom):
+            self.changePourcentageDiesel(nom=nom)
 
     def getQte_gazoline(self, nom: str):
         self.qte_gallon_gazoline_dispo = fct.all_stations[nom][QTE_GAL_GAZOLINE_DISPO]
@@ -96,23 +100,32 @@ class StationClass:
     def setQte_gazoline(self, nom: str, newQte_gazoline: float):
         self.qte_gallon_gazoline_dispo = newQte_gazoline + self.qte_gallon_gazoline_dispo
         fct.all_stations[nom][QTE_GAL_GAZOLINE_DISPO] = self.qte_gallon_gazoline_dispo
+        if functions.findIfStationExist(nom):
+            self.changePourcentageGazoline(nom=nom)
 
     def getPourcentageGazoline(self, ) -> float:
         return self.pourcentage_gazoline
 
     def changePourcentageGazoline(self, nom: str):
 
-        self.pourcentage_gazoline = self.qte_gallon_gazoline_dispo / \
-            self.capacite_gazoline * 100
         if fct.findIfStationExist(nom):
+            cap_gaz = fct.all_stations[nom][fct.CAPACITE_GAZOLINE]
+            self.capacite_gazoline = cap_gaz or 0
+            if cap_gaz <= 0:
+                return
+            self.pourcentage_gazoline = self.qte_gallon_gazoline_dispo / self.capacite_gazoline * 100
             fct.all_stations[nom][fct.PERCENT_GAL_GAZOLINE] = self.pourcentage_gazoline
 
     def getPourcentageDiesel(self, ):
         return self.pourcentage_diesel
 
     def changePourcentageDiesel(self, nom: str):
-        self.pourcentage_diesel = self.qte_gallon_diesel_dispo / self.capacite_diesel * 100
         if fct.findIfStationExist(nom):
+            cap_dies = fct.all_stations[nom][fct.CAPACITE_DIESEL]
+            self.capacite_diesel = cap_dies or 0
+            if cap_dies <= 0:
+                return
+            self.pourcentage_diesel = self.qte_gallon_diesel_dispo / self.capacite_diesel * 100
             fct.all_stations[nom][fct.PERCENT_GAL_DIESEL] = self.pourcentage_diesel
 
     def afficher(self, ):
@@ -164,13 +177,13 @@ class StationClass:
             cap_gaz = fct.all_stations[nomstation][CAPACITE_GAZOLINE]
             qte_gaz_dispo = fct.all_stations[nomstation][QTE_GAL_GAZOLINE_DISPO]
             qte_gaz_consomee = fct.all_stations[nomstation][CAPACITE_GAZOLINE] - \
-                fct.all_stations[nomstation][QTE_GAL_GAZOLINE_DISPO]
+                               fct.all_stations[nomstation][QTE_GAL_GAZOLINE_DISPO]
             percent_gaz_dispo = fct.all_stations[nomstation][PERCENT_GAL_GAZOLINE]
 
             cap_dies = fct.all_stations[nomstation][CAPACITE_DIESEL]
             qte_dies_dispo = fct.all_stations[nomstation][QTE_GAL_DIESEL_DISPO]
             qte_dies_consommee = fct.all_stations[nomstation][QTE_GAL_DIESEL_DISPO] - \
-                fct.all_stations[nomstation][QTE_GAL_DIESEL_DISPO]
+                                 fct.all_stations[nomstation][QTE_GAL_DIESEL_DISPO]
             percent_dies_dispo = fct.all_stations[nomstation][PERCENT_GAL_DIESEL]
 
             data_essence.update({
@@ -208,14 +221,14 @@ class StationClass:
             somme_cap_dies = somme_cap_dies + statsessence[CAPACITE_DIESEL]
 
             somme_qte_gaz_dispo = somme_qte_gaz_dispo + \
-                statsessence[QTE_GAL_GAZOLINE_DISPO]
+                                  statsessence[QTE_GAL_GAZOLINE_DISPO]
             somme_qte_dies_dispo = somme_qte_dies_dispo + \
-                statsessence[QTE_GAL_DIESEL_DISPO]
+                                   statsessence[QTE_GAL_DIESEL_DISPO]
 
             somme_gaz_cons = somme_gaz_cons + \
-                statsessence[QTE_GAL_GAZOLINE_CONSOMMEE]
+                             statsessence[QTE_GAL_GAZOLINE_CONSOMMEE]
             somme_dies_cons = somme_dies_cons + \
-                statsessence[QTE_GAL_GAZOLINE_CONSOMMEE]
+                              statsessence[QTE_GAL_GAZOLINE_CONSOMMEE]
         # end for
 
         # Qtes manquantes
