@@ -182,7 +182,7 @@ class StationClass:
 
             cap_dies = fct.all_stations[nomstation][CAPACITE_DIESEL]
             qte_dies_dispo = fct.all_stations[nomstation][QTE_GAL_DIESEL_DISPO]
-            qte_dies_consommee = fct.all_stations[nomstation][QTE_GAL_DIESEL_DISPO] - \
+            qte_dies_consommee = fct.all_stations[nomstation][CAPACITE_DIESEL] - \
                                  fct.all_stations[nomstation][QTE_GAL_DIESEL_DISPO]
             percent_dies_dispo = fct.all_stations[nomstation][PERCENT_GAL_DIESEL]
 
@@ -228,7 +228,7 @@ class StationClass:
             somme_gaz_cons = somme_gaz_cons + \
                              statsessence[QTE_GAL_GAZOLINE_CONSOMMEE]
             somme_dies_cons = somme_dies_cons + \
-                              statsessence[QTE_GAL_GAZOLINE_CONSOMMEE]
+                              statsessence[QTE_GAL_DIESEL_CONSOMMEE]
         # end for
 
         # Qtes manquantes
@@ -260,7 +260,7 @@ class StationClass:
                 print(
                     f"Qte gazoline consommee -> {statsessence[QTE_GAL_GAZOLINE_CONSOMMEE]}")
                 print("---------  DIESEL ---------")
-                print(f"qte diesel disponible -> {val[QTE_GAL_DIESEL_DISPO]}")
+                print(f"qte diesel disponible -> {statsessence[QTE_GAL_DIESEL_DISPO]}")
                 print(
                     f"Qte diesel consommee -> {statsessence[QTE_GAL_DIESEL_CONSOMMEE]}")
 

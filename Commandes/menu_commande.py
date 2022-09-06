@@ -73,7 +73,7 @@ def addCommande():
             print("Entrer une valeur correcte, entre 1 et 3")
 
 
-def saveCommande(v_qte_gallon_gazoline=0.0, v_qte_gallon_diesel=0.0):
+def saveCommande(v_qte_gallon_gazoline, v_qte_gallon_diesel):
     v_commande.enregistrer(qte_gallon_gazoline=v_qte_gallon_gazoline, qte_gallon_diesel=v_qte_gallon_diesel)
 
 
