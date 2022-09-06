@@ -18,13 +18,14 @@ def getQteGallonDieselToCommand() -> float:
 
 
 def getQteGallonGazolineToCommand() -> float:
-    return 1.25 * float(v_station.sommeQtes()[TOTAL_GAL_GAZOLINE_MANQUEE])
+    total_to_comnand = v_station.sommeQtes()
+    return 1.25 * float(total_to_comnand[TOTAL_GAL_GAZOLINE_MANQUEE])
 
 
 def addCommande():
     usertype = ""
-    v_qte_gallon_gazoline = 0.0
-    v_qte_gallon_diesel = 0.0
+    # v_qte_gallon_gazoline = 0.0
+    # v_qte_gallon_diesel = 0.0
 
     print("Pour placer une commande,")
     print(f"Veuillez choisir l'une de ces options:")
@@ -51,19 +52,19 @@ def addCommande():
                 return
 
             if usertype == GAZOLINE_CHOICE:
-                v_qte_gallon_gazoline = getQteGallonGazolineToCommand()
-                saveCommande(v_qte_gallon_gazoline=v_qte_gallon_gazoline, v_qte_gallon_diesel=0.0)
+                qte_gallon_gazoline = getQteGallonGazolineToCommand()
+                saveCommande(v_qte_gallon_gazoline=qte_gallon_gazoline, v_qte_gallon_diesel=0.0)
                 return
 
             elif usertype == DIESEL_CHOICE:
-                v_qte_gallon_diesel = getQteGallonDieselToCommand()
-                saveCommande(v_qte_gallon_gazoline=0.0, v_qte_gallon_diesel=v_qte_gallon_diesel)
+                qte_gallon_diesel = getQteGallonDieselToCommand()
+                saveCommande(v_qte_gallon_gazoline=0.0, v_qte_gallon_diesel=qte_gallon_diesel)
                 return
 
             elif usertype == BOTH_GAZ_CHOICE:
-                v_qte_gallon_diesel = getQteGallonDieselToCommand()
-                v_qte_gallon_gazoline = getQteGallonGazolineToCommand()
-                saveCommande(v_qte_gallon_gazoline=v_qte_gallon_gazoline, v_qte_gallon_diesel=v_qte_gallon_diesel)
+                qte_gallon_diesel = getQteGallonDieselToCommand()
+                qte_gallon_gazoline = getQteGallonGazolineToCommand()
+                saveCommande(v_qte_gallon_gazoline=qte_gallon_gazoline, v_qte_gallon_diesel=qte_gallon_diesel)
                 return
 
             else:

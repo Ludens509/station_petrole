@@ -1,7 +1,7 @@
 import secrets
 
 import functions
-from functions import COMMAND_QTE_GAZOLINE, all_stations, LALUE_CONST, TABARRE_CONST, CLERCINE_CONST, \
+from functions import COMMAND_QTE_GAZOLINE, COMMAND_QTE_DIESEL, all_stations, LALUE_CONST, TABARRE_CONST, CLERCINE_CONST, \
     PETION_VILLE_CONST, \
     QTE_GAL_DIESEL_DISPO, QTE_GAL_GAZOLINE_DISPO, all_commandes, CAPACITE_GAZOLINE, CAPACITE_DIESEL, generer_date, \
     generer_etat
@@ -23,11 +23,18 @@ class Commande:
         self.etat = etat
 
 
-    def getQte_gazoline_commander(self,):
-        # self.qte_gallon_gazoline = functions.all_commandes[COMMAND_QTE_GAZOLINE][self.qte_gallon_gazoline]
+    def getQte_gazoline_commander(self,) -> float:
+        for i in functions.all_commandes:
+            for key, values in i.items():
+                if key == functions.COMMAND_QTE_GAZOLINE:
+                    self.qte_gallon_gazoline =  values
         return self.qte_gallon_gazoline
 
-    def getQte_diesel_commander(self,):
+    def getQte_diesel_commander(self,) -> float:
+        for i in functions.all_commandes:
+            for key, values in i.items():
+                if key == functions.COMMAND_QTE_DIESEL:
+                    self.qte_gallon_diesel =  values
         return self.qte_gallon_diesel
 
     def generer_id(self, ) -> str:
@@ -52,8 +59,8 @@ class Commande:
         # command_dict =
         functions.all_commandes.append({
             functions.COMMAND_ID: self.id,
-            functions.COMMAND_QTE_GAZOLINE: self.qte_gallon_gazoline,
             functions.COMMAND_QTE_DIESEL: self.qte_gallon_diesel,
+            functions.COMMAND_QTE_GAZOLINE: self.qte_gallon_gazoline,
             functions.COMMAND_DATE: self.date_commande,
             functions.COMMAND_STATE: self.etat
         })

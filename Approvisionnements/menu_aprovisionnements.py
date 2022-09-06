@@ -7,19 +7,6 @@ import functions
 
 v_commande = Commande()
 
-
-#     # Get the amount of gazoline and diesel odered
-# def getQte_commander(self,):
-
-#     etat = "N"
-#     if etat in functions.all_commandes:
-#         qte_diesel_commander = Commande.getQte_diesel_commander()
-#         qte_gazoline_commander = Commande.getQte_gazoline_commander
-#         Commande.setEtat("P")
-#     else:
-#         print("Pas de nouvelle commande")    
-
-
 # ================================== AJOUTER UN APPROVISIONNEMENT ===============================
 
 def addApprovisionnement():
@@ -44,16 +31,17 @@ def addApprovisionnement():
         for i in functions.all_commandes:
             for key, val in i.items():
                 if key == functions.COMMAND_STATE and val == "N":
-                    qte_diesel_command = v_commande.getQte_diesel_commander()
-                    qte_gazoline_command = v_commande.getQte_gazoline_commander()
+                    v_qte_diesel_command = v_commande.getQte_diesel_commander()
+                    v_qte_gazoline_command = v_commande.getQte_gazoline_commander()
                     Commande.changeStateAllCommands
+
     else:
         print("\nNo command found\n")
 
     qte_dies_manquante = 0.0
     qte_gaz_manquante = 0.0
-    v_qte_diesel_command = qte_diesel_command
-    v_qte_gazoline_command = qte_gazoline_command
+    # v_qte_diesel_command = qte_diesel_command
+    # v_qte_gazoline_command = qte_gazoline_command
     # LALUE
     for cle, valeur in functions.all_stations.items():
         if cle == functions.LALUE_CONST:
@@ -69,14 +57,15 @@ def addApprovisionnement():
             qte_dies_manquante = qte_essence[functions.QTE_GAL_DIESEL_CONSOMMEE]
 
             if v_qte_diesel_command > 0 and v_qte_gazoline_command == 0:
+
                 StationClass().setQte_diesel(station, qte_dies_manquante)
-                app = Approvisionnement(id=id, station=station, qte_gallon_diesel=qte_dies_manquante,
-                                        qte_gallon_gazoline=0, date_app=date)
+                app = Approvisionnement(id=id, station=station, qte_gallon_diesel=qte_dies_manquante,qte_gallon_gazoline=0, date_app=date)
             elif v_qte_diesel_command == 0 and v_qte_gazoline_command > 0:
+
                 StationClass().setQte_gazoline(station, qte_gaz_manquante)
-                app = Approvisionnement(id=id, station=station, qte_gallon_diesel=0,
-                                        qte_gallon_gazoline=qte_gaz_manquante, date_app=date)
+                app = Approvisionnement(id=id, station=station, qte_gallon_diesel=0,qte_gallon_gazoline=qte_gaz_manquante, date_app=date)
             else:
+
                 StationClass().setQte_gazoline(station, qte_gaz_manquante)
                 StationClass().setQte_diesel(station, qte_dies_manquante)
                 app = Approvisionnement(id=id, station=station, qte_gallon_diesel=qte_dies_manquante,
